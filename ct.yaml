@@ -1,7 +1,7 @@
 chart-dirs:
   - .
 charts:
-  - helm-boilerplate
+  - postal
 chart-yaml-schema: chart-schema.yaml
 lint-conf: lintconf.yaml
 validate-maintainers: true

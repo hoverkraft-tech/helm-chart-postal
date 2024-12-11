@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "postal.smtp.fullname" . }}
+  labels:
+    {{- include "postal.smtp.labels" . | nindent 4 }}
+  annotations:
+  {{- with .Values.commonAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.smtp.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "postal.smtp.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.smtp.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "postal.smtp.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.smtp.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "postal.smtp.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.smtp.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.smtp.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: smtp
+              containerPort: {{ .Values.smtp.containerPort }}
+              protocol: TCP
+            - name: metrics
+              containerPort: {{ .Values.smtp.healthAndMetricsServerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: metrics
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: metrics
+          env:
+            - name: MAIN_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: mariadb-password
+            - name: MESSAGE_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: mariadb-password
+            - name: RAILS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: rails-secret-key
+          envFrom:
+            - configMapRef:
+                name: {{ include "postal.fullname" . }}
+          command:
+            - postal
+            - smtp-server
+          resources:
+            {{- toYaml .Values.smtp.resources | nindent 12 }}
+          volumeMounts:
+            - name: {{ include "postal.fullname" . }}-signing-key
+              mountPath: "/config/signing.key"
+              subPath: "signing.key"
+            {{- if .Values.smtp.tls.enabled }}
+            - name: {{ include "postal.fullname" . }}-smtp-cert
+              mountPath: "/config/smtp.cert"
+              subPath: "smtp.cert"
+            - name: {{ include "postal.fullname" . }}-smtp-key
+              mountPath: "/config/smtp.key"
+              subPath: "smtp.key"
+            {{- end }}
+      volumes:
+        - name: {{ include "postal.fullname" . }}
+          configMap:
+            name: {{ include "postal.fullname" . }}
+        - name: {{ include "postal.fullname" . }}-signing-key
+          secret:
+            secretName: {{ .Values.global.secretName }}
+            items:
+              - key: signing-key
+                path: "signing.key"
+        {{- if .Values.smtp.tls.enabled }}
+        - name: {{ include "postal.fullname" . }}-smtp-cert
+          secret:
+            secretName: {{ .Values.global.secretName }}
+            items:
+              - key: smtp-cert
+                path: "smtp.cert"
+        - name: {{ include "postal.fullname" . }}-smtp-key
+          secret:
+            secretName: {{ .Values.global.secretName }}
+            items:
+              - key: smtp-key
+                path: "smtp.key"
+        {{- end }}
+      {{- with .Values.smtp.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.smtp.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.smtp.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

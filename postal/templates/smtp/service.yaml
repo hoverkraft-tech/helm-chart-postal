@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "postal.smtp.fullname" . }}
+  labels:
+    {{- include "postal.smtp.labels" . | nindent 4 }}
+  annotations:
+  {{- with .Values.commonAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.smtp.service.type }}
+  ports:
+    - port: {{ .Values.smtp.service.port }}
+      targetPort: 25
+      protocol: TCP
+      name: smtp
+  selector:
+    {{- include "postal.smtp.selectorLabels" . | nindent 4 }}

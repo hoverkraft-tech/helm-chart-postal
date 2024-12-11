@@ -1,0 +1,57 @@
+{{ if .Values.jobs.initialize.enable }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "postal.jobs.initialize.fullname" . }}
+  labels:
+    {{- include "postal.jobs.initialize.labels" . | nindent 4 }}
+spec:
+  template:
+    metadata:
+      {{- with .Values.jobs.initialize.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "postal.jobs.initialize.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.jobs.initialize.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "postal.jobs.initialize.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.jobs.initialize.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.jobs.initialize.securityContext | nindent 12 }}
+          image: "{{ .Values.jobs.initialize.image.repository }}:{{ .Values.jobs.initialize.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.jobs.initialize.image.pullPolicy }}
+          command:
+            - postal
+            - initialize
+          resources:
+            {{- toYaml .Values.jobs.initialize.resources | nindent 12 }}
+          volumeMounts:
+            - name: {{ include "postal.fullname" . }}
+              mountPath: /config
+              readOnly: true
+      volumes:
+        - name: {{ include "postal.fullname" . }}
+          configMap:
+            name: {{ include "postal.fullname" . }}
+      {{- with .Values.jobs.initialize.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.jobs.initialize.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.jobs.initialize.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: Never
+{{- end }}

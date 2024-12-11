@@ -1,0 +1,101 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "postal.worker.fullname" . }}
+  labels:
+    {{- include "postal.worker.labels" . | nindent 4 }}
+  annotations:
+  {{- with .Values.commonAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if not .Values.worker.autoscaling.enabled }}
+  replicas: {{ .Values.worker.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "postal.worker.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.worker.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "postal.worker.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.worker.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "postal.worker.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.worker.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.worker.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: metrics
+              containerPort: {{ .Values.worker.healthAndMetricsServerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: metrics
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: metrics
+          env:
+            - name: MAIN_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: mariadb-password
+            - name: MESSAGE_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: mariadb-password
+            - name: RAILS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: rails-secret-key
+          envFrom:
+            - configMapRef:
+                name: {{ include "postal.fullname" . }}
+          command:
+            - postal
+            - worker
+          resources:
+            {{- toYaml .Values.worker.resources | nindent 12 }}
+          volumeMounts:
+            - name: {{ include "postal.fullname" . }}-signing-key
+              mountPath: "/config/signing.key"
+              subPath: "signing.key"
+      volumes:
+        - name: {{ include "postal.fullname" . }}
+          configMap:
+            name: {{ include "postal.fullname" . }}
+        - name: {{ include "postal.fullname" . }}-signing-key
+          secret:
+            secretName: {{ .Values.global.secretName }}
+            items:
+              - key: signing-key
+                path: "signing.key"
+      {{- with .Values.worker.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.worker.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.worker.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

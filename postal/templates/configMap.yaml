@@ -1,0 +1,70 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ include "postal.fullname" . }}
+  labels:
+    {{- include "postal.labels" . | nindent 4 }}
+  annotations:
+  {{- with .Values.commonsAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  POSTAL_WEB_HOSTNAME: {{ .Values.global.webHostname | quote }}
+  POSTAL_WEB_PROTOCOL: {{ .Values.global.webProtocol | quote }}
+  POSTAL_SMTP_HOSTNAME: {{ .Values.global.smtpHostname | quote }}
+  POSTAL_USE_IP_POOLS: {{ .Values.global.useIpPools | quote }}
+  POSTAL_DEFAULT_MAXIMUM_DELIVERY_ATTEMPTS: {{ .Values.global.maximumDeliveryAttempts | quote }}
+  POSTAL_DEFAULT_MAXIMUM_HOLD_EXPIRY_DAYS: {{ .Values.global.maximumHoldExpiryDays | quote }}
+  POSTAL_DEFAULT_SUPPRESSION_LIST_AUTOMATIC_REMOVAL_DAYS: {{ .Values.global.suppressionListAutomaticRemovalDays | quote }}
+  POSTAL_DEFAULT_SPAM_THRESHOLD: {{ .Values.global.spamThreshold | quote }}
+  POSTAL_DEFAULT_SPAM_FAILURE_THRESHOLD: {{ .Values.global.spamFailureThreshold | quote }}
+  POSTAL_USE_LOCAL_NS_FOR_DOMAIN_VERIFICATION: {{ .Values.global.useLocalNsForDomainVerification | quote }}
+  POSTAL_USE_RESENT_SENDER_HEADER: {{ .Values.global.useResentSenderHeader | quote }}
+  POSTAL_SMTP_RELAYS: {{ .Values.global.smtpRelays | quote }}
+  POSTAL_TRUSTED_PROXIES: {{ .Values.global.trustedProxies | quote }}
+
+  WEB_SERVER_DEFAULT_PORT: {{ .Values.web.containerPort | quote }}
+  WEB_SERVER_DEFAULT_BIND_ADDRESS: "0.0.0.0"
+  WEB_SERVER_MAX_THREADS: {{ .Values.web.maxThreads | quote }}
+
+  WORKER_DEFAULT_HEALTH_SERVER_PORT: {{ .Values.worker.healthAndMetricsServerPort | quote }}
+  WORKER_DEFAULT_HEALTH_SERVER_BIND_ADDRESS: "0.0.0.0"
+
+  MAIN_DB_HOST: {{ .Values.mariadb.fullnameOverride | quote }}
+  MAIN_DB_PORT: "3306"
+  MAIN_DB_USERNAME: {{ .Values.mariadb.auth.username | quote }}
+  MAIN_DB_DATABASE: {{ .Values.mariadb.auth.database | quote }}
+  MAIN_DB_POOL_SIZE: {{ .Values.database.poolSize | quote }}
+  MAIN_DB_ENCODING:  {{ .Values.database.encoding | quote }}
+
+  MESSAGE_DB_HOST: {{ .Values.mariadb.fullnameOverride | quote }}
+  MESSAGE_DB_PORT: "3306"
+  MESSAGE_DB_USERNAME: {{ .Values.mariadb.auth.username | quote }}
+
+  LOGGING_ENABLED: {{ .Values.logging.enabled | quote }}
+  LOGGING_RAILS_LOG_ENABLED: {{ .Values.logging.railsLog | quote }}
+  LOGGING_SENTRY_DSN: {{ .Values.logging.sentryDsn | quote }}
+  LOGGING_HIGHLIGHTING_ENABLED: {{ .Values.logging.highlighting | quote }}
+
+  DNS_MX_RECORDS: {{ .Values.dns.mxRecords | quote }}
+  DNS_SPF_INCLUDE: {{ .Values.dns.spfInclude | quote }}
+  DNS_RETURN_PATH_DOMAIN: {{ .Values.dns.returnPathDomain | quote }}
+  DNS_ROUTE_DOMAIN: {{ .Values.dns.routeDomain | quote }}
+  DNS_TRACK_DOMAIN: {{ .Values.dns.trackDomain | quote }}
+
+  SMTP_SERVER_DEFAULT_PORT: {{ .Values.smtp.containerPort | quote }}
+  SMTP_SERVER_DEFAULT_HEALTH_SERVER_PORT: {{ .Values.smtp.healthAndMetricsServerPort | quote }}
+  SMTP_SERVER_DEFAULT_HEALTH_SERVER_BIND_ADDRESS: "0.0.0.0"
+  SMTP_SERVER_TLS_ENABLED: {{ .Values.smtp.tls.enabled | quote }}
+  SMTP_SERVER_PROXY_PROTOCOL: {{ .Values.smtp.proxyProtocol | quote }}
+  SMTP_SERVER_LOG_CONNECTIONS: {{ .Values.smtp.logConnections | quote }}
+  SMTP_SERVER_MAX_MESSAGE_SIZE: {{ .Values.smtp.maxMessageSize | quote }}
+  SMTP_SERVER_LOG_IP_ADDRESS_EXCLUSION_MATCHER: {{ .Values.smtp.logIpAddressExclusionMatcher | quote }}
+
+  SPAMD_ENABLED: {{ .Values.spamAssassin.enabled | quote }}
+  SPAMD_HOST: {{ .Values.spamAssassin.host | quote }}
+  SPAMD_PORT: {{ .Values.spamAssassin.port | quote }}
+
+  CLAMAV_ENABLED: {{ .Values.clamAv.enabled | quote }}
+  CLAMAV_HOST: {{ .Values.clamAv.host | quote }}
+  CLAMAV_PORT: {{ .Values.clamAv.port | quote }}

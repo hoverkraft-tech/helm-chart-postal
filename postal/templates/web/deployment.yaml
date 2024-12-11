@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "postal.web.fullname" . }}
+  labels:
+    {{- include "postal.web.labels" . | nindent 4 }}
+  annotations:
+  {{- with .Values.commonAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.web.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "postal.web.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.web.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "postal.web.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.web.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "postal.web.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.web.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.web.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.web.containerPort }}
+              protocol: TCP
+          env:
+            - name: MAIN_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName  }}
+                  key: mariadb-password
+            - name: MESSAGE_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: mariadb-password
+            - name: RAILS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: rails-secret-key
+          envFrom:
+            - configMapRef:
+                name: {{ include "postal.fullname" . }}
+          command:
+            - postal
+            - web-server
+          resources:
+            {{- toYaml .Values.web.resources | nindent 12 }}
+          volumeMounts:
+            - name: {{ include "postal.fullname" . }}-signing-key
+              mountPath: "/config/signing.key"
+              subPath: "signing.key"
+      volumes:
+        - name: {{ include "postal.fullname" . }}
+          configMap:
+            name: {{ include "postal.fullname" . }}
+        - name: {{ include "postal.fullname" . }}-signing-key
+          secret:
+            secretName: {{ .Values.global.secretName }}
+            items:
+              - key: signing-key
+                path: "signing.key"
+      {{- with .Values.web.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.web.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.web.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
