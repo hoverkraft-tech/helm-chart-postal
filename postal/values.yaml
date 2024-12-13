@@ -6,7 +6,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  repository: webofmars/postal
+  repository: ghcr.io/postalserver/postal
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -336,7 +336,7 @@ jobs:
   initialize:
     enable: true # is it the right value ?
     image:
-      repository: webofmars/postal
+      repository: ghcr.io/postalserver/postal
       pullPolicy: IfNotPresent
       # Overrides the image tag whose default is the chart appVersion.
       tag: ""
