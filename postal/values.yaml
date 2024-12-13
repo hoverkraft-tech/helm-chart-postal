@@ -6,10 +6,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  repository: ghcr.io/postalserver/postal
+  repository: webofmars/postal
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "3.3.2"
+  tag: ""
 
 commonsAnnotations: {}
   # argocd.argoproj.io/sync-wave: "1"
@@ -18,6 +18,8 @@ commonsAnnotations: {}
   # helm.sh/hook-weight: "1"
 
 global:
+  # use an existing secret instead of the automaticaly generated one
+  existingSecretName: ""
   # The hostname that the Postal web interface runs on
   webHostname: localhost
   # The HTTP protocol to use for the Postal web interface
@@ -316,71 +318,25 @@ spamAssassin:
 
 # dependencies
 mariadb:
+  # check available values here: https://artifacthub.io/packages/helm/bitnami/mariadb?modal=values-schema
   enabled: true
+  # TODO: we should switch to templating for the name to avoid using reference to fullname override everywhere
   fullnameOverride: postal-mariadb
-  commonAnnotations:
-    # argocd.argoproj.io/sync-wave: "0"
-    # helm.sh/hook: "pre-install,pre-upgrade"
-    # helm.sh/hook-delete-policy: "before-hook-creation,hook-succeeded"
-    # helm.sh/hook-weight: "1"
   auth:
-    ## @param auth.rootPassword Password for the `root` user. Ignored if existing secret is provided.
-    ##
-    rootPassword: ""
-
     database: "postal"
     username: "postal"
-
-    ## @param auth.password Password for the new user. Ignored if existing secret is provided
-    password: ""
-
-    ## @param auth.existingSecret Use existing secret for password details (`auth.rootPassword`, `auth.password`, `auth.replicationPassword` will be ignored and picked up from this secret).
-    ## The secret has to contain the keys `mariadb-root-password`, `mariadb-replication-password` and `mariadb-password`
-    ##
-    existingSecret: "postal-mariadb"
-
-  # the database user you create needs all permissions on databases called postal and postal-*
-  initdbScripts: |
+    password: "postal"
+  initdbScripts:
+    # NOTE: postal is creating postal-server-* databases to handle postal mail servers configuration
     grant_privileges.sql: |
       GRANT ALL PRIVILEGES ON `postal%`.* TO 'postal'@'%' WITH GRANT OPTION;
-
-  primary:
-    persistence:
-      ## @param primary.persistence.enabled Enable persistence on MariaDB primary replicas using a `PersistentVolumeClaim`. If false, use emptyDir
-      ##
-      enabled: false
-      ## @param primary.persistence.existingClaim Name of an existing `PersistentVolumeClaim` for MariaDB primary replicas
-      ## NOTE: When it's set the rest of persistence parameters are ignored
-      ##
-      existingClaim: ""
-      ## @param primary.persistence.storageClass MariaDB primary persistent volume storage Class
-      ## If defined, storageClassName: <storageClass>
-      ## If set to "-", storageClassName: "", which disables dynamic provisioning
-      ## If undefined (the default) or set to null, no storageClassName spec is
-      ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-      ##   GKE, AWS & OpenStack)
-      ##
-      storageClass: ""
-      ## @param primary.persistence.labels Labels for the PVC
-      ##
-      labels: {}
-      ## @param primary.persistence.annotations MariaDB primary persistent volume claim annotations
-      ##
-      annotations: {}
-      ## @param primary.persistence.accessModes MariaDB primary persistent volume access Modes
-      ##
-      accessModes:
-        - ReadWriteOnce
-      ## @param primary.persistence.size MariaDB primary persistent volume size
-      ##
-      size: 1Gi
 
 jobs:
   # Bootstrap MariaDB
   initialize:
-    enable: false
+    enable: true # is it the right value ?
     image:
-      repository: ghcr.io/postalserver/postal
+      repository: webofmars/postal
       pullPolicy: IfNotPresent
       # Overrides the image tag whose default is the chart appVersion.
       tag: ""
