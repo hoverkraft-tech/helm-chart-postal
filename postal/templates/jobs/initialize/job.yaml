@@ -15,6 +15,7 @@ spec:
       labels:
         {{- include "postal.jobs.initialize.selectorLabels" . | nindent 8 }}
     spec:
+      ttlSecondsAfterFinished: 120
       {{- with .Values.jobs.initialize.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -31,16 +32,27 @@ spec:
           command:
             - postal
             - initialize
+          env:
+            - name: MAIN_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: mariadb-password
+            - name: MESSAGE_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: mariadb-password
+            - name: RAILS_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.secretName }}
+                  key: rails-secret-key
+          envFrom:
+            - configMapRef:
+                name: {{ include "postal.fullname" . }}
           resources:
             {{- toYaml .Values.jobs.initialize.resources | nindent 12 }}
-          volumeMounts:
-            - name: {{ include "postal.fullname" . }}
-              mountPath: /config
-              readOnly: true
-      volumes:
-        - name: {{ include "postal.fullname" . }}
-          configMap:
-            name: {{ include "postal.fullname" . }}
       {{- with .Values.jobs.initialize.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
