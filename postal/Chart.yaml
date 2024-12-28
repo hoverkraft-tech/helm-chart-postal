@@ -22,7 +22,7 @@ version: 0.1.1
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: 0.1.1
+appVersion: "3.3.4"
 
 maintainers:
   - name: "libr4rian"
@@ -35,5 +35,5 @@ maintainers:
 dependencies:
   - name: mariadb
     repository: https://charts.bitnami.com/bitnami
-    version: 0.1.1
+    version: 16.*.*
     condition: mariadb.enabled

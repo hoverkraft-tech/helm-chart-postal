@@ -80,8 +80,9 @@ jobs:
         run: |
           cd "${CHART_PATH}"
           echo "+ update helm chart version"
-          sed -i "s/version: .*/version: ${VERSION}/g" Chart.yaml
-          sed -i "s/appVersion: .*/appVersion: ${VERSION}/g" Chart.yaml
+          sed -i "s/^version: .*/version: ${VERSION}/g" Chart.yaml
+          # we don't want to touch appVersion in this case
+          # sed -i "s/^appVersion: .*/appVersion: ${VERSION}/g" Chart.yaml
         env:
           CHART_PATH: ${{github.workspace}}/postal
           VERSION: ${{ needs.update_release_draft.outputs.latestRelease }}
