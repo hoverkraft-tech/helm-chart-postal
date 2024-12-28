@@ -1,2 +1,7 @@
-helm-ct 3.11.0
-helm 3.16.3
+github-cli 2.58.0
+helm 3.14.3
+helm-ct 3.10.1
+helm-docs 1.14.2
+kubeconform 0.6.4
+kubectl 1.30.5
+cosign 2.0.2
