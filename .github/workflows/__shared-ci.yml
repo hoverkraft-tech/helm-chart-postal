@@ -1,0 +1,57 @@
+name: Internal - Common Continuous Integration tasks
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: "Tag Version (semver - x.x.x)"
+        type: string
+        required: false
+    outputs:
+      built-images:
+        value: ${{ jobs.docker-build-images.outputs.built-images }}
+
+jobs:
+
+  chart-testing:
+    name: "Tests: helm chart"
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install tools with asdf
+        uses: asdf-vm/actions/install@v3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.6.1
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
+          if [[ -n "$changed" ]]; then
+            echo "INFO: The chart has changes compared to the default branch"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "INFO: The chart has no changes compared to the default branch"
+          fi
+      - name: Run chart-testing (lint)
+        if: steps.list-changed.outputs.changed == 'true'
+        run: ct lint --target-branch ${{ github.event.repository.default_branch }}
+      - name: Create kind cluster
+        if: steps.list-changed.outputs.changed == 'true'
+        uses: helm/kind-action@v1.11.0
+      - name: Run chart-testing (install)
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          ct install \
+            --target-branch ${{ github.event.repository.default_branch }} \
+            --wait"
+      - name: show pods
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          sleep 10
+          kubectl get pods -A
