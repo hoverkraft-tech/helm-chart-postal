@@ -6,6 +6,7 @@ metadata:
   labels:
     {{- include "postal.jobs.initialize.labels" . | nindent 4 }}
 spec:
+  ttlSecondsAfterFinished: 120
   template:
     metadata:
       {{- with .Values.jobs.initialize.podAnnotations }}
@@ -15,7 +16,6 @@ spec:
       labels:
         {{- include "postal.jobs.initialize.selectorLabels" . | nindent 8 }}
     spec:
-      ttlSecondsAfterFinished: 120
       {{- with .Values.jobs.initialize.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
