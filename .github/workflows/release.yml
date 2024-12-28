@@ -83,19 +83,19 @@ jobs:
           sed -i "s/version: .*/version: ${VERSION}/g" Chart.yaml
           sed -i "s/appVersion: .*/appVersion: ${VERSION}/g" Chart.yaml
         env:
-          CHART_PATH: ${{github.workspace}}/helm/chart
+          CHART_PATH: ${{github.workspace}}/postal
           VERSION: ${{ needs.update_release_draft.outputs.latestRelease }}
 
       - name: update helm chart docs
         uses: losisin/helm-docs-github-action@v1.3.5
         with:
-          chart-search-root: helm/chart
+          chart-search-root: postal
           git-push: "false"
 
       - name: update helm values schema json
         uses: losisin/helm-values-schema-json-action@v1.3.0
         with:
-          input: helm/chart/values.yaml
+          input: postal/values.yaml
 
       - uses: hoverkraft-tech/ci-github-common/actions/create-and-merge-pull-request@0.15.0
         with:
@@ -132,7 +132,7 @@ jobs:
           #       cf https://github.com/bsord/helm-push/blob/5ec3320fb5720a0a5aa210d871999f2b836f2d97/entrypoint.sh#L37
           access-token: ${{ env.OCI_REGISTRY_PASSWORD }}
           registry-url: oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REGISTRY_CHART_REPOSITORY }}
-          chart-folder: helm/chart
+          chart-folder: postal
           force: true
           update-dependencies: true
           version: ${{ needs.update_release_draft.outputs.latestRelease }}
