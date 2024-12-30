@@ -1,6 +1,6 @@
 # postal
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.3.4](https://img.shields.io/badge/AppVersion-3.3.4-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.3.4](https://img.shields.io/badge/AppVersion-3.3.4-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -55,6 +55,9 @@ A Helm chart for Kubernetes
 | image.repository | string | `"ghcr.io/postalserver/postal"` |  |
 | image.tag | string | `""` |  |
 | jobs.initialize.affinity | object | `{}` |  |
+| jobs.initialize.annotations."helm.sh/hook" | string | `"post-install,post-upgrade"` |  |
+| jobs.initialize.annotations."helm.sh/hook-delete-policy" | string | `"before-hook-creation"` |  |
+| jobs.initialize.annotations."helm.sh/hook-weight" | string | `"1"` |  |
 | jobs.initialize.autoscaling.enabled | bool | `false` |  |
 | jobs.initialize.autoscaling.maxReplicas | int | `100` |  |
 | jobs.initialize.autoscaling.minReplicas | int | `1` |  |
