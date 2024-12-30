@@ -37,7 +37,9 @@ A Helm chart for Kubernetes
 | global.existingSecretName | string | `""` |  |
 | global.maximumDeliveryAttempts | int | `18` |  |
 | global.maximumHoldExpiryDays | int | `7` |  |
+| global.railsSecretKey | string | `""` | the secret key used to sign and encrypt cookies and session data in the application. Generate it using openssl rand -hex 64 |
 | global.secretName | string | `"postal"` |  |
+| global.signingKey | string | `""` | key used to sign emails. Generate it using openssl genrsa -out path/to/signing.key 2048 |
 | global.smtpHostname | string | `"localhost"` |  |
 | global.smtpRelays | string | `""` |  |
 | global.spamFailureThreshold | int | `20` |  |
