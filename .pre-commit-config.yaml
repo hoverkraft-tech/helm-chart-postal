@@ -10,7 +10,7 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-symlinks
       - id: check-yaml
-        exclude: ^helm-boilerplate/templates/.*$|^chart-schema.yaml$
+        exclude: ^postal/templates/.*$|^chart-schema.yaml$
       - id: detect-aws-credentials
       - id: mixed-line-ending
       - id: trailing-whitespace

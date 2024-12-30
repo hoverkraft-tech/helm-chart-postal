@@ -3,6 +3,13 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ include "postal.jobs.initialize.fullname" . }}
+  annotations:
+  {{- with .Values.commonAnnotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.jobs.initialize.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   labels:
     {{- include "postal.jobs.initialize.labels" . | nindent 4 }}
 spec:
