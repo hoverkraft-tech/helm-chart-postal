@@ -64,7 +64,13 @@
                 "maximumHoldExpiryDays": {
                     "type": "integer"
                 },
+                "railsSecretKey": {
+                    "type": "string"
+                },
                 "secretName": {
+                    "type": "string"
+                },
+                "signingKey": {
                     "type": "string"
                 },
                 "smtpHostname": {
@@ -123,6 +129,20 @@
                     "properties": {
                         "affinity": {
                             "properties": {},
+                            "type": "object"
+                        },
+                        "annotations": {
+                            "properties": {
+                                "helm.sh/hook": {
+                                    "type": "string"
+                                },
+                                "helm.sh/hook-delete-policy": {
+                                    "type": "string"
+                                },
+                                "helm.sh/hook-weight": {
+                                    "type": "string"
+                                }
+                            },
                             "type": "object"
                         },
                         "autoscaling": {
