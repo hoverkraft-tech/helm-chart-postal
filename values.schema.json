@@ -369,8 +369,37 @@
                 },
                 "tls": {
                     "properties": {
+                        "annotations": {
+                            "properties": {},
+                            "type": "object"
+                        },
+                        "certManager": {
+                            "properties": {
+                                "issuer": {
+                                    "properties": {
+                                        "group": {
+                                            "type": "string"
+                                        },
+                                        "kind": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
                         "enabled": {
                             "type": "boolean"
+                        },
+                        "hosts": {
+                            "type": "array"
+                        },
+                        "source": {
+                            "type": "string"
                         }
                     },
                     "type": "object"
