@@ -194,10 +194,21 @@ smtp:
   # A regular expression to use to exclude connections from logging
   logIpAddressExclusionMatcher: ""
 
-  # Enabled TLS
-  # Postal secret must contains SMTP server's TLS private key and SMTP server's TLS certificate
   tls:
+    # -- enable TLS support for smtp
     enabled: false
+    # -- specify the source of the TLS certificate (for now only cert-manager is supported)
+    source: cert-manager
+    # -- specify annotations for the TLS object (cert-manager Certificate)
+    annotations: {}
+    # -- specify the hosts that must be covered by the TLS certificate
+    hosts: []
+    certManager:
+      issuer:
+        # -- cert-manager issuer name
+        name: lestencrypt
+        kind: ClusterIssuer
+        group: cert-manager.io/v1
 
   serviceAccount:
     # Specifies whether a service account should be created

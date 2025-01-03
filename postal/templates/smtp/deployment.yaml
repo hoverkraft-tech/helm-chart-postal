@@ -79,12 +79,8 @@ spec:
               mountPath: "/config/signing.key"
               subPath: "signing.key"
             {{- if .Values.smtp.tls.enabled }}
-            - name: {{ include "postal.fullname" . }}-smtp-cert
-              mountPath: "/config/smtp.cert"
-              subPath: "smtp.cert"
-            - name: {{ include "postal.fullname" . }}-smtp-key
-              mountPath: "/config/smtp.key"
-              subPath: "smtp.key"
+            - name: smtp-tls
+              mountPath: "/config/certs"
             {{- end }}
       volumes:
         - name: {{ include "postal.fullname" . }}
@@ -97,18 +93,9 @@ spec:
               - key: signing-key
                 path: "signing.key"
         {{- if .Values.smtp.tls.enabled }}
-        - name: {{ include "postal.fullname" . }}-smtp-cert
+        - name: smtp-tls
           secret:
-            secretName: {{ .Values.global.secretName }}
-            items:
-              - key: smtp-cert
-                path: "smtp.cert"
-        - name: {{ include "postal.fullname" . }}-smtp-key
-          secret:
-            secretName: {{ .Values.global.secretName }}
-            items:
-              - key: smtp-key
-                path: "smtp.key"
+            secretName: {{ include "postal.smtp.fullname" . }}-tls
         {{- end }}
       {{- with .Values.smtp.nodeSelector }}
       nodeSelector:

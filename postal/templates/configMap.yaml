@@ -55,7 +55,11 @@ data:
   SMTP_SERVER_DEFAULT_PORT: {{ .Values.smtp.containerPort | quote }}
   SMTP_SERVER_DEFAULT_HEALTH_SERVER_PORT: {{ .Values.smtp.healthAndMetricsServerPort | quote }}
   SMTP_SERVER_DEFAULT_HEALTH_SERVER_BIND_ADDRESS: "0.0.0.0"
+  {{- if .Values.smtp.tls.enabled }}
   SMTP_SERVER_TLS_ENABLED: {{ .Values.smtp.tls.enabled | quote }}
+  SMTP_SERVER_TLS_CERTIFICATE_PATH: "/config/certs/tls.crt"
+  SMTP_SERVER_TLS_PRIVATE_KEY_PATH: "/config/certs/tls.key"
+  {{- end }}
   SMTP_SERVER_PROXY_PROTOCOL: {{ .Values.smtp.proxyProtocol | quote }}
   SMTP_SERVER_LOG_CONNECTIONS: {{ .Values.smtp.logConnections | quote }}
   SMTP_SERVER_MAX_MESSAGE_SIZE: {{ .Values.smtp.maxMessageSize | quote }}
