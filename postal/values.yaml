@@ -208,7 +208,7 @@ smtp:
         # -- cert-manager issuer name
         name: lestencrypt
         kind: ClusterIssuer
-        group: cert-manager.io/v1
+        group: cert-manager.io
 
   serviceAccount:
     # Specifies whether a service account should be created
