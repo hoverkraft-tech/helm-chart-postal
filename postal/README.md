@@ -1,6 +1,6 @@
 # postal
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.3.4](https://img.shields.io/badge/AppVersion-3.3.4-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.3.4](https://img.shields.io/badge/AppVersion-3.3.4-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -111,7 +111,7 @@ A Helm chart for Kubernetes
 | smtp.serviceAccount.create | bool | `false` |  |
 | smtp.serviceAccount.name | string | `""` |  |
 | smtp.tls.annotations | object | `{}` | specify annotations for the TLS object (cert-manager Certificate) |
-| smtp.tls.certManager.issuer.group | string | `"cert-manager.io/v1"` |  |
+| smtp.tls.certManager.issuer.group | string | `"cert-manager.io"` |  |
 | smtp.tls.certManager.issuer.kind | string | `"ClusterIssuer"` |  |
 | smtp.tls.certManager.issuer.name | string | `"lestencrypt"` | cert-manager issuer name |
 | smtp.tls.enabled | bool | `false` | enable TLS support for smtp |
