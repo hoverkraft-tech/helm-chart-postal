@@ -1,0 +1,26 @@
+{{- if and .Values.smtp.tls.enabled (eq .Values.smtp.tls.source "cert-manager") }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ include "postal.smtp.fullname" . }}
+  {{- $merged := merge .Values.commonsAnnotations .Values.smtp.tls.annotations }}
+  {{- if $merged }}
+  annotations:
+    {{- range $key, $value := $merged }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  {{- end }}
+spec:
+  secretName: {{ include "postal.smtp.fullname" . }}-tls
+  dnsNames:
+    {{- range .Values.smtp.tls.hosts }}
+    - {{ . }}
+    {{- end }}
+  usages:
+    - digital signature
+    - key encipherment
+  issuerRef:
+    name: {{ .Values.smtp.tls.certManager.issuer.name }}
+    kind: {{ .Values.smtp.tls.certManager.issuer.kind }}
+    group: {{ .Values.smtp.tls.certManager.issuer.group }}
+{{- end }}
