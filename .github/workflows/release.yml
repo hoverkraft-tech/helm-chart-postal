@@ -88,7 +88,7 @@ jobs:
           VERSION: ${{ needs.update_release_draft.outputs.latestRelease }}
 
       - name: update helm chart docs
-        uses: losisin/helm-docs-github-action@v1.3.5
+        uses: losisin/helm-docs-github-action@v1.5.0
         with:
           chart-search-root: postal
           git-push: "false"
