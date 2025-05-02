@@ -94,7 +94,7 @@ jobs:
           git-push: "false"
 
       - name: update helm values schema json
-        uses: losisin/helm-values-schema-json-action@v1.5.7
+        uses: losisin/helm-values-schema-json-action@v1.6.3
         with:
           input: postal/values.yaml
 
