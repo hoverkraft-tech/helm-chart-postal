@@ -1,0 +1,33 @@
+---
+name: Need fix to Issue
+
+on: # yamllint disable-line rule:truthy
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      #checkov:skip=CKV_GHA_7: required
+      manual-commit-ref:
+        description: "The SHA of the commit to get the diff for"
+        required: true
+      manual-base-ref:
+        description:
+          "By default, the commit entered above is compared to the one directly
+          before it; to go back further, enter an earlier SHA here"
+        required: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  main:
+    uses: hoverkraft-tech/ci-github-common/.github/workflows/need-fix-to-issue.yml@6857ef6d10f704e0998aa4955282f27d1b9be778 # 0.23.1
+    with:
+      manual-commit-ref: ${{ inputs.manual-commit-ref }}
+      manual-base-ref: ${{ inputs.manual-base-ref }}

@@ -1,17 +1,23 @@
+---
 name: 🚀 Release
 
-on:
+on: # yamllint disable-line rule:truthy
   workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-jobs:
+permissions:
+  actions: read
+  contents: read
+  statuses: write
+  security-events: write
 
+jobs:
   check-branches:
     name: Check branches
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - name: Check branch
         run: |
@@ -19,127 +25,44 @@ jobs:
             echo "This action can only be run on the ${{ github.event.repository.default_branch }} branch"
             exit 1
           fi
-
-  update_release_draft:
-    name: Draft a new release
-    # we want to publish a new tag only if ci succeeds
-    needs: check-branches
-    permissions:
-      contents: write
-      pull-requests: write
-    runs-on: self-hosted
-    outputs:
-      latestRelease: ${{ steps.update_release_draft.outputs.tag_name }}
-    steps:
-      # create a new release
-      - id: update_release_draft
-        uses: release-drafter/release-drafter@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          publish: true
-          disable-autolabeler: true
-
+          echo "Branch check passed. Proceeding with the release."
   ci:
-    needs: update_release_draft
+    needs: check-branches
     name: Continuous Integration
     uses: ./.github/workflows/__shared-ci.yml
-    with:
-      tag: ${{ needs.update_release_draft.outputs.latestRelease }}
-    permissions:
-      actions: write
-      contents: read
-      id-token: write
-      issues: read
-      packages: write
-      pull-requests: read
-    secrets: inherit
 
-  helm-publish:
-    name: "Helm: push chart to OCI registry"
-    needs: [update_release_draft, ci]
-    runs-on: self-hosted
+  release:
+    needs: ci
+    name: Release
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.create-release.outputs.tag }}
     steps:
-      # Get a local copy of the code
-      - uses: actions/checkout@v4
+      - id: create-release
+        uses: hoverkraft-tech/ci-github-publish/actions/release/create@7ce3b41507f05379e3658efe955327873c2654b4 # 0.7.1
 
-      # install tools with asdf
-      - name: install tools with asdf
-        uses: asdf-vm/actions/install@v4
-
-      - name: login to OCI registry
-        run: |
-          echo "+ login to OCI registry"
-          helm registry login ${OCI_REGISTRY} -u "${OCI_REGISTRY_USERNAME}" -p "${OCI_REGISTRY_PASSWORD}"
-        env:
-          OCI_REGISTRY: ghcr.io
-          OCI_REGISTRY_USERNAME: ${{ github.actor }}
-          OCI_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: update helm chart version
-        run: |
-          cd "${CHART_PATH}"
-          echo "+ update helm chart version"
-          sed -i "s/^version: .*/version: ${VERSION}/g" Chart.yaml
-          # we don't want to touch appVersion in this case
-          # sed -i "s/^appVersion: .*/appVersion: ${VERSION}/g" Chart.yaml
-        env:
-          CHART_PATH: ${{github.workspace}}/postal
-          VERSION: ${{ needs.update_release_draft.outputs.latestRelease }}
-
-      - name: update helm chart docs
-        uses: losisin/helm-docs-github-action@v1.5.2
+  release-chart:
+    name: "Release Helm Chart"
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - id: release
+        uses: hoverkraft-tech/ci-github-container/actions/helm/release-chart@f9e149b6cdfa8443994994f10085691a57b8cf0e # 0.27.1
         with:
-          chart-search-root: postal
-          git-push: "false"
+          chart: postal
+          path: ./postal
+          tag: ${{ needs.release.outputs.tag }}
+          oci-registry: ghcr.io
+          oci-registry-password: ${{ secrets.GITHUB_TOKEN }}
+          update-tag-paths: .version
 
-      - name: update helm values schema json
-        uses: losisin/helm-values-schema-json-action@v1.5.7
-        with:
-          input: postal/values.yaml
-
-      - uses: hoverkraft-tech/ci-github-common/actions/create-and-merge-pull-request@0.15.0
+      - uses: hoverkraft-tech/ci-github-common/actions/create-and-merge-pull-request@6857ef6d10f704e0998aa4955282f27d1b9be778 # 0.23.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          branch: release-chart-${{ needs.update_release_draft.outputs.latestRelease }}
-          title: "ci: release chart ${{ needs.update_release_draft.outputs.latestRelease }}"
-          body: Release app and chart version ${{ needs.update_release_draft.outputs.latestRelease }}
+          branch: release-chart-${{ needs.release.outputs.tag }}
+          title: "ci: release chart ${{ needs.release.outputs.tag }}"
+          body: Release app and chart version ${{ needs.release.outputs.tag }}
           commit-message: |
-            ci: release chart ${{ needs.update_release_draft.outputs.latestRelease }}
+            ci: release chart ${{ needs.release.outputs.tag }}
 
             [skip ci]
-
-      - name: refresh main branch
-        run: |
-          set -x
-          echo "refreshing current branch"
-          git config --global user.name "${GITHUB_ACTOR}"
-          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-          git fetch --all
-          git checkout ${BRANCH_NAME}
-          git pull --rebase
-          echo "commit id: $(git rev-parse --short HEAD)"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
-
-      # Push the chart
-      - name: push helm chart to OCI registry
-        uses: hoverkraft-tech/helm-push@v5.0.0
-        with:
-          useOCIRegistry: true
-          username: ${{ env.OCI_REGISTRY_USERNAME }}
-          # NOTE: access-token is the password for OCI registry
-          #       cf https://github.com/bsord/helm-push/blob/5ec3320fb5720a0a5aa210d871999f2b836f2d97/entrypoint.sh#L37
-          access-token: ${{ env.OCI_REGISTRY_PASSWORD }}
-          registry-url: oci://${{ env.OCI_REGISTRY }}/${{ env.OCI_REGISTRY_CHART_REPOSITORY }}
-          chart-folder: postal
-          force: true
-          update-dependencies: true
-          version: ${{ needs.update_release_draft.outputs.latestRelease }}
-          appVersion: ${{ needs.update_release_draft.outputs.latestRelease }}
-        env:
-          OCI_REGISTRY: ghcr.io
-          OCI_REGISTRY_USERNAME: ${{ github.actor }}
-          OCI_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-          OCI_REGISTRY_CHART_REPOSITORY: 'hoverkraft-tech/charts'
