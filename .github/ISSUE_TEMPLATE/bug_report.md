@@ -1,7 +1,9 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-
+title: "[BUG] - short description of the bug"
+labels: bug
+assignees: ""
 ---
 
 **Describe the bug**
@@ -17,7 +19,8 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Kubernetes (please complete the following information):**
- - Kubernetes version [`kubectl version --short`]
+
+- Kubernetes version [`kubectl version --short`]
 
 **HRE pod logs**
 `kubectl logs hre-xxxxxxx`

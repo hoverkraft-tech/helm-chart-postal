@@ -1,0 +1,9 @@
+---
+extends: default
+
+ignore:
+  - postal/
+
+rules:
+  line-length:
+    max: 170

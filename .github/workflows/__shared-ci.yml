@@ -1,58 +1,29 @@
-name: Internal - Common Continuous Integration tasks
+---
+name: Shared - Continuous Integration for common tasks
 
-on:
+on: # yamllint disable-line rule:truthy
   workflow_call:
-    inputs:
-      tag:
-        description: "Tag Version (semver - x.x.x)"
-        type: string
-        required: false
-    outputs:
-      built-images:
-        value: ${{ jobs.docker-build-images.outputs.built-images }}
+
+permissions:
+  actions: read
+  contents: read
+  statuses: write
+  security-events: write
 
 jobs:
+  linter:
+    uses: hoverkraft-tech/ci-github-common/.github/workflows/linter.yml@9a3d71ca9f68bc1061db8ea1442084ac31a0f8bf # 0.23.0
+    permissions:
+      actions: read
+      contents: read
+      statuses: write
+      security-events: write
 
-  chart-testing:
-    name: "Tests: helm chart"
-    runs-on: self-hosted
+  tests-charts:
+    name: Tests - Charts
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: read
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Install tools with asdf
-        uses: asdf-vm/actions/install@v3
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.6.1
-      - name: Run chart-testing (list-changed)
-        id: list-changed
-        run: |
-          changed="$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})"
-          echo "changed=${changed}"
-          if [[ -n "$changed" ]]; then
-            echo "INFO: The chart has changes compared to the default branch"
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "INFO: The chart has no changes compared to the default branch"
-          fi
-      - name: Run chart-testing (lint)
-        if: steps.list-changed.outputs.changed == 'true'
-        run: ct lint --target-branch ${{ github.event.repository.default_branch }}
-      - name: Create kind cluster
-        if: steps.list-changed.outputs.changed == 'true'
-        uses: helm/kind-action@v1.12.0
-      - name: Run chart-testing (install)
-        if: steps.list-changed.outputs.changed == 'true'
-        run: |
-          ct install \
-            --target-branch ${{ github.event.repository.default_branch }} \
-            --wait"
-      - name: show pods
-        if: steps.list-changed.outputs.changed == 'true'
-        run: |
-          sleep 10
-          kubectl get pods -A
+      - name: Test helm charts
+        uses: hoverkraft-tech/ci-github-container/actions/helm/test-chart@00be6bf5e8054d319e621cd8523cc05ca5102462 # 0.25.0
