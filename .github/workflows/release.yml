@@ -1,6 +1,7 @@
+---
 name: 🚀 Release
 
-on:
+on: # yamllint disable-line rule:truthy
   workflow_dispatch:
 
 concurrency:
@@ -8,7 +9,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
   check-branches:
     name: Check branches
     runs-on: self-hosted
@@ -142,4 +142,4 @@ jobs:
           OCI_REGISTRY: ghcr.io
           OCI_REGISTRY_USERNAME: ${{ github.actor }}
           OCI_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-          OCI_REGISTRY_CHART_REPOSITORY: 'hoverkraft-tech/charts'
+          OCI_REGISTRY_CHART_REPOSITORY: "hoverkraft-tech/charts"

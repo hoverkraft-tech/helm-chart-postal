@@ -1,0 +1,17 @@
+---
+name: "Pull Request - Semantic Lint"
+
+on: # yamllint disable-line rule:truthy
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  main:
+    uses: hoverkraft-tech/ci-github-common/.github/workflows/semantic-pull-request.yml@95664be4ec235bfc221c4356c7153cbab3fb8f93 # 0.22.3

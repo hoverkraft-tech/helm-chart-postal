@@ -1,0 +1,17 @@
+---
+name: Greetings
+
+on: # yamllint disable-line rule:truthy
+  issues:
+    types: [opened]
+  pull_request_target:
+    branches: [main]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  greetings:
+    uses: hoverkraft-tech/ci-github-common/.github/workflows/greetings.yml@95664be4ec235bfc221c4356c7153cbab3fb8f93 # 0.22.3
