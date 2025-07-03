@@ -1,34 +1,38 @@
-# .github/dependabot.yml
+---
 version: 2
 updates:
-
   - package-ecosystem: "github-actions"
-    directories:
-      - "/"
-    open-pull-requests-limit: 3
-    labels:
-      - "github_actions"
+    directory: "/"
+    open-pull-requests-limit: 20
     schedule:
       interval: "weekly"
       day: friday
-      time: '04:00'
+      time: "04:00"
+    groups:
+      github-actions-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: "docker"
     directory: "/"
-    open-pull-requests-limit: 3
-    labels:
-      - "docker"
+    open-pull-requests-limit: 20
     schedule:
       interval: "weekly"
       day: friday
-      time: '04:10'
+      time: "04:00"
+    groups:
+      docker-dependencies:
+        patterns:
+          - "*"
 
-  - package-ecosystem: "pip"
-    directory: "/"
-    open-pull-requests-limit: 3
-    labels:
-      - "pip"
+  - package-ecosystem: "helm"
+    directory: "/postal"
+    open-pull-requests-limit: 20
     schedule:
       interval: "weekly"
       day: friday
-      time: '04:20'
+      time: "04:00"
+    groups:
+      helm-dependencies:
+        patterns:
+          - "*"

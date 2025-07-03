@@ -1,58 +1,33 @@
-name: Internal - Common Continuous Integration tasks
+---
+name: Shared - Continuous Integration for common tasks
 
-on:
+on: # yamllint disable-line rule:truthy
   workflow_call:
-    inputs:
-      tag:
-        description: "Tag Version (semver - x.x.x)"
-        type: string
-        required: false
-    outputs:
-      built-images:
-        value: ${{ jobs.docker-build-images.outputs.built-images }}
+
+permissions:
+  contents: read
 
 jobs:
+  linter:
+    uses: hoverkraft-tech/ci-github-common/.github/workflows/linter.yml@6857ef6d10f704e0998aa4955282f27d1b9be778 # 0.23.1
+    permissions:
+      actions: read
+      contents: read
+      statuses: write
+      security-events: write
+    with:
+      # FIXME: Remove useless linters on next super-linter release
+      linter-env: |
+        VALIDATE_KUBERNETES_KUBECONFORM=false
 
-  chart-testing:
-    name: "Tests: helm chart"
-    runs-on: self-hosted
+  tests-charts:
+    name: Tests - Charts
+    runs-on: "ubuntu-latest"
+    permissions:
+      contents: read
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Test helm charts
+        uses: hoverkraft-tech/ci-github-container/actions/helm/test-chart@f9e149b6cdfa8443994994f10085691a57b8cf0e # 0.27.1
         with:
-          fetch-depth: 0
-      - name: Install tools with asdf
-        uses: asdf-vm/actions/install@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.6.1
-      - name: Run chart-testing (list-changed)
-        id: list-changed
-        run: |
-          changed="$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})"
-          echo "changed=${changed}"
-          if [[ -n "$changed" ]]; then
-            echo "INFO: The chart has changes compared to the default branch"
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "INFO: The chart has no changes compared to the default branch"
-          fi
-      - name: Run chart-testing (lint)
-        if: steps.list-changed.outputs.changed == 'true'
-        run: ct lint --target-branch ${{ github.event.repository.default_branch }}
-      - name: Create kind cluster
-        if: steps.list-changed.outputs.changed == 'true'
-        uses: helm/kind-action@v1.12.0
-      - name: Run chart-testing (install)
-        if: steps.list-changed.outputs.changed == 'true'
-        run: |
-          ct install \
-            --target-branch ${{ github.event.repository.default_branch }} \
-            --wait"
-      - name: show pods
-        if: steps.list-changed.outputs.changed == 'true'
-        run: |
-          sleep 10
-          kubectl get pods -A
+          helm-repositories: |
+            bitnami https://charts.bitnami.com/bitnami

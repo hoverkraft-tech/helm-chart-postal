@@ -1,39 +1,23 @@
+---
 name: Pull request - Continuous Integration
 
-on:
+on: # yamllint disable-line rule:truthy
   pull_request:
-    types: [opened, reopened, synchronize]
-
-permissions:
-  contents: read
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
-
-  pull-request-labeler:
-    name: Pull request labeler
-    runs-on: self-hosted
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - uses: release-drafter/release-drafter@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          disable-releaser: true
-
   ci:
     name: Continuous Integration
     uses: ./.github/workflows/__shared-ci.yml
     permissions:
-      actions: write
+      actions: read
       contents: read
-      id-token: write
-      issues: read
-      packages: write
-      pull-requests: read
-    secrets: inherit
+      statuses: write
+      security-events: write
