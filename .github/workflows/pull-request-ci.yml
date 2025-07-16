@@ -21,3 +21,4 @@ jobs:
       contents: read
       statuses: write
       security-events: write
+    secrets: inherit

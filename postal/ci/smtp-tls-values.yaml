@@ -3,7 +3,7 @@
 # Consider using environment variables or secret management systems.
 global:
   # Example Rails secret key - REPLACE WITH ACTUAL SECRET IN PRODUCTION
-  railsSecretKey: "REPLACE_WITH_ACTUAL_RAILS_SECRET_KEY_128_CHARS_LONG_EXAMPLE_VALUE_DO_NOT_USE_IN_PRODUCTION_ABCDEF1234567890"
+  railsSecretKey: ""
   # Example signing key - REPLACE WITH ACTUAL PRIVATE KEY IN PRODUCTION
   signingKey: |
     # EXAMPLE PRIVATE KEY - DO NOT USE IN PRODUCTION
