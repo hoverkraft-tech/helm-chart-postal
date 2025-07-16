@@ -18,6 +18,53 @@ A Helm chart for Kubernetes
 | ------------------------------------ | ------- | ------- |
 | <https://charts.bitnami.com/bitnami> | mariadb | 16._._  |
 
+## Security Configuration
+
+### ⚠️ **IMPORTANT SECURITY NOTICE** ⚠️
+
+The CI test files in this repository (`ci/base-values.yaml`, `ci/ingress-values.yaml`, `ci/smtp-tls-values.yaml`) contain **EXAMPLE VALUES ONLY**. These are placeholder values for testing and CI purposes.
+
+**YOU MUST REPLACE THESE VALUES IN PRODUCTION:**
+
+#### Required Secrets
+
+1. **Rails Secret Key** (`global.railsSecretKey`):
+
+   ```bash
+   # Generate a secure 128-character secret key
+   openssl rand -hex 64
+   ```
+
+2. **Signing Key** (`global.signingKey`):
+   ```bash
+   # Generate a 2048-bit RSA private key
+   openssl genrsa -out signing.key 2048
+   ```
+
+#### Security Best Practices
+
+- **Never use the example values** from CI files in production
+- Store secrets securely using:
+  - Kubernetes Secrets
+  - External secret management systems (HashiCorp Vault, AWS Secrets Manager, etc.)
+  - Environment variables (in secure environments)
+- Use `global.existingSecretName` to reference pre-created Kubernetes secrets
+- Regularly rotate your secrets
+- Ensure proper RBAC is configured for secret access
+
+#### Example Production Configuration
+
+```yaml
+global:
+  existingSecretName: "postal-secrets" # Reference existing Kubernetes secret
+  # OR provide values directly (not recommended for production)
+  railsSecretKey: "your-actual-128-char-secret-key-here"
+  signingKey: |
+    -----BEGIN RSA PRIVATE KEY-----
+    your-actual-private-key-content-here
+    -----END RSA PRIVATE KEY-----
+```
+
 ## Values
 
 | Key                                                        | Type   | Default                                                                     | Description                                                                                                                 |
