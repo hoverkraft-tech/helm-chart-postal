@@ -12,7 +12,9 @@ lint-fix: ## Execute linting and fix
 		-e FIX_YAML_PRETTIER=true \
 		-e FIX_MARKDOWN=true \
 		-e FIX_MARKDOWN_PRETTIER=true \
-		-e FIX_NATURAL_LANGUAGE=true)
+		-e FIX_NATURAL_LANGUAGE=true \
+	)
+
 define run_linter
 	DEFAULT_WORKSPACE="$(CURDIR)"; \
 	LINTER_IMAGE="linter:latest"; \
@@ -22,8 +24,6 @@ define run_linter
 		-e DEFAULT_WORKSPACE="$$DEFAULT_WORKSPACE" \
 		-e FILTER_REGEX_INCLUDE="$(filter-out $@,$(MAKECMDGOALS))" \
 		-e IGNORE_GITIGNORED_FILES=true \
-		-e KUBERNETES_KUBECONFORM_OPTIONS="--schema-location default --schema-location 'https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json'" \
-		-e FILTER_REGEX_EXCLUDE=dist/**/* \
 		$(1) \
 		-v $$VOLUME \
 		--rm \

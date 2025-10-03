@@ -22,10 +22,10 @@ global:
   # use an existing secret instead of the automaticaly generated one
   existingSecretName: ""
   # -- key used to sign emails.
-  # Generate it using openssl genrsa -out path/to/signing.key 2048
+  # Generate it using `openssl genrsa -out path/to/signing.key 2048`
   signingKey: ""
   # -- the secret key used to sign and encrypt cookies and session data in the application.
-  # Generate it using openssl rand -hex 64
+  # Generate it using `openssl rand -hex 64`
   railsSecretKey: ""
   # The hostname that the Postal web interface runs on
   webHostname: localhost

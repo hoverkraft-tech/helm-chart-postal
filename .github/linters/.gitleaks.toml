@@ -1,0 +1,4 @@
+[allowlist]
+regexes = [
+  '''your-actual-private-key-content-here'''
+]

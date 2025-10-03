@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   release:
-    uses: hoverkraft-tech/ci-github-publish/.github/workflows/prepare-release.yml@7ce3b41507f05379e3658efe955327873c2654b4 # 0.7.1
+    uses: hoverkraft-tech/ci-github-publish/.github/workflows/prepare-release.yml@00adc3757296add499b60fd72a124b06974a100e # 0.10.1
     with:
       github-app-id: ${{ vars.CI_BOT_APP_ID }}
     secrets:
