@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   linter:
-    uses: hoverkraft-tech/ci-github-common/.github/workflows/linter.yml@1c379f7f6e0fc850fe5a7111f74d54e159b4dcd2 # 0.26.0
+    uses: hoverkraft-tech/ci-github-common/.github/workflows/linter.yml@5f11437c716059f30c635f90055060e4ef8b31a0 # 0.28.0
     permissions:
       actions: read
       contents: read
@@ -25,7 +25,7 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: Test helm charts
-        uses: hoverkraft-tech/ci-github-container/actions/helm/test-chart@4f29319e02dd65152386c436e8c3136f380a0e71 # 0.28.0
+        uses: hoverkraft-tech/ci-github-container/actions/helm/test-chart@e44dc0064b073031aa93d8f0d4aea040a7c3ba7d # 0.29.0
         with:
           helm-repositories: |
             bitnami https://charts.bitnami.com/bitnami

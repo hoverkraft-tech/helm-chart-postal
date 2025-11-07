@@ -39,7 +39,7 @@ jobs:
       tag: ${{ steps.create-release.outputs.tag }}
     steps:
       - id: create-release
-        uses: hoverkraft-tech/ci-github-publish/actions/release/create@42d50a3461a177557ca3f83b1d927d7c0783c894 # 0.11.2
+        uses: hoverkraft-tech/ci-github-publish/actions/release/create@38963f37ef5be0b6ae84147f542d96d9eb02802b # 0.14.0
 
   release-chart:
     name: "Release Helm Chart"
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: release
-        uses: hoverkraft-tech/ci-github-container/actions/helm/release-chart@4f29319e02dd65152386c436e8c3136f380a0e71 # 0.28.0
+        uses: hoverkraft-tech/ci-github-container/actions/helm/release-chart@e44dc0064b073031aa93d8f0d4aea040a7c3ba7d # 0.29.0
         with:
           chart: postal
           path: ./postal
@@ -56,7 +56,7 @@ jobs:
           oci-registry-password: ${{ secrets.GITHUB_TOKEN }}
           update-tag-paths: .version
 
-      - uses: hoverkraft-tech/ci-github-common/actions/create-and-merge-pull-request@1c379f7f6e0fc850fe5a7111f74d54e159b4dcd2 # 0.26.0
+      - uses: hoverkraft-tech/ci-github-common/actions/create-and-merge-pull-request@5f11437c716059f30c635f90055060e4ef8b31a0 # 0.28.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           branch: release-chart-${{ needs.release.outputs.tag }}
