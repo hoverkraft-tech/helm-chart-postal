@@ -1,0 +1,52 @@
+# SECURITY NOTE: These are example values for CI/testing purposes only.
+# In production, these values MUST be replaced with actual secrets.
+# Consider using environment variables or secret management systems.
+global:
+  railsSecretKey: LvH4wQpMsNbzuXcNIkvedxBLT9VSSXcjC5LbIcGOS0x06ooTLqtAnPradCvAjIHS7hO90KdUSjfY4xtMWPb6SRdSLH03JNest3xVNJx0ORzhtJYaJX9wjqfH6NTAHyEt
+  signingKey: |
+    -----BEGIN PRIVATE KEY-----
+    MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDSAOXj/qF/TzuP
+    Ut/ns25uK/jBnIZCwQUJyODksJCRCUU9CUgafZwyyTvox91Es36Xqg/xVfunR/d/
+    AFiabpqBY2om1Kvi1CvRLiZCiuKAY9zPtTjPqOKnDEcR6fPqq/9cSZaUNOytqBjK
+    N82bGTlAWXcWauY6kmciyJASkSHNA5/nzoVlmCvcGAHxVQq/SyDSbGOcKBW26ayC
+    N04peX3hOnOkOm+R6pdg/gnSK3P8NsW3MxP+MugcZGnyUZXysGWRZgh7A7vtrVcp
+    omMZsdw7KjcJr4z/2gHtogIQU2O6O2nWQZfowVdcNfPsvzumL3XokTOtNSeWxj2u
+    N8vmToTnAgMBAAECggEAEeDwsYHupuOMew2/sT618pw8v+L/DTTYpHYdK2say7ZB
+    1knxgQvbnflC5/UIEf7EEs5wMAg1dg7q872ITZGIBub7VRX7EkMk/diTekvPr8WQ
+    uYBAt3E15qnlbRGBaiO9iFJdhv2gfsJWZfTtRLyXgrJ7MIXmVus665uupF4FxinW
+    u/vQnxZOp0lNd1y/9wWP9qx5c47H2DVjxtbog5Wbo3GjjUWIEpsJWs/CBSoINhNc
+    THFKvimVgPOcqz8vhyrobnUJAFEBH4AcDIydrCVBEEpwTKRhs1ww+Asrj+w+Am+/
+    1TMQfXpnym3KIQx9uaFqHPNFfb6/+6s5/xib2dJZMQKBgQD6tv0+SvFY9znxWp2x
+    IOQKJzPKfVWhtiLL1mSHmL1jR/WOFzoe8u4oKiYdyATECXGf/5bd4aOIRKxaFnDC
+    TUYBtoDFqejHlRjAjz280zASd/YB1TTk9LwPtxCF3DDXtuM2qRooCqO1gn7kSwBq
+    IpLT4H2edj/EA2CvP6V9QY3VVwKBgQDWbjSnZHq+LIO7582cY04bOSkhTCSh+kA2
+    wjp0C+ZriFlKoiwMQAz6D5YFGE2rhAeur00l01Emgtq+T0dcZ6k4o+JfUQZVS4Qp
+    AY1EoEGLG7XvjVJhB5Dpdjk5zso/6L5vpsroH4Cz3ejdE7YcdQmvEXzW5PS2lJpb
+    +DajDBIC8QKBgHoee8fF1T0SXuTS0JCghrLzWWS+G+HCx7wl1528pjMfr9ngMm00
+    wxBJR3umG7wpJXFbm27EI1WSrajL2WyrGvhmnt6o3juowf+5RccdzwKP8AIAid0j
+    4B5/esrY7+mCqbXMNHNgi1E0GP62EaOg54fQhx+SVYjyZDu4crFKJv3NAoGBALUD
+    u3dDn0pDEcHiYPQP8LOSgWIWgSYrt2GCfQ3RreZA5//U/xIoT8wYtDAA4DBV+JZC
+    bgHsbajw9e+JxVgAOh4SWtrT72C5qwtiv/qavjnMXr2ms1AtrusmXhCqvJlOxNRE
+    HS3uyhsMzbMzHJzRQCeFv7k49kvbDqNs2dKyMdJBAoGBAKyd19QDKgl14Qcfpyrt
+    NWufWVbukOFVJlh6XCxR9qyMZRAtw9cJbQshUfaOXxzh1H7soJ+Bq4ySW7MkzhCG
+    oDDsor1Y3hxiLCDctwdr8qX3F0je4ow7HftyFTlh5xtSbmYV/EnHpO40tuKBLqnA
+    ZPicQao+s/8DQwNr25oSL+kM
+    -----END PRIVATE KEY-----
+
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: chart-example-tls
+      hosts:
+        - chart-example.local
+
+cert-manager:
+  enabled: true
