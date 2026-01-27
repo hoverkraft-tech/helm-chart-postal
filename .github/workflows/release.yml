@@ -8,11 +8,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  actions: read
-  contents: read
-  statuses: write
-  security-events: write
+permissions: {}
 
 jobs:
   check-branches:
@@ -26,28 +22,41 @@ jobs:
             exit 1
           fi
           echo "Branch check passed. Proceeding with the release."
+
   ci:
     needs: check-branches
     name: Continuous Integration
     uses: ./.github/workflows/__shared-ci.yml
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+      statuses: write
+    secrets: inherit
 
   release:
     needs: ci
     name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       tag: ${{ steps.create-release.outputs.tag }}
     steps:
       - id: create-release
-        uses: hoverkraft-tech/ci-github-publish/actions/release/create@42d50a3461a177557ca3f83b1d927d7c0783c894 # 0.11.2
+        uses: hoverkraft-tech/ci-github-publish/actions/release/create@84e8ace407055e7a40ba6670a8c697e1ce2dfafa # 0.20.1
 
   release-chart:
     name: "Release Helm Chart"
     needs: release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      pull-requests: write
     steps:
       - id: release
-        uses: hoverkraft-tech/ci-github-container/actions/helm/release-chart@4f29319e02dd65152386c436e8c3136f380a0e71 # 0.28.0
+        uses: hoverkraft-tech/ci-github-container/actions/helm/release-chart@a0bab9151cc074af9f6c8204ab42a48d2d570379 # 0.30.6
         with:
           chart: postal
           path: ./postal
@@ -56,7 +65,7 @@ jobs:
           oci-registry-password: ${{ secrets.GITHUB_TOKEN }}
           update-tag-paths: .version
 
-      - uses: hoverkraft-tech/ci-github-common/actions/create-and-merge-pull-request@1c379f7f6e0fc850fe5a7111f74d54e159b4dcd2 # 0.26.0
+      - uses: hoverkraft-tech/ci-github-common/actions/create-and-merge-pull-request@b17226e57c8ef31f860719766656ebb6df017218 # 0.31.6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           branch: release-chart-${{ needs.release.outputs.tag }}
