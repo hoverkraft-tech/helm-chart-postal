@@ -17,17 +17,18 @@ on: # yamllint disable-line rule:truthy
           before it; to go back further, enter an earlier SHA here"
         required: false
 
-permissions:
-  contents: read
-  issues: write
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   main:
-    uses: hoverkraft-tech/ci-github-common/.github/workflows/need-fix-to-issue.yml@1c379f7f6e0fc850fe5a7111f74d54e159b4dcd2 # 0.26.0
+    uses: hoverkraft-tech/ci-github-common/.github/workflows/need-fix-to-issue.yml@b17226e57c8ef31f860719766656ebb6df017218 # 0.31.6
+    permissions:
+      contents: read
+      issues: write
     with:
       manual-commit-ref: ${{ inputs.manual-commit-ref }}
       manual-base-ref: ${{ inputs.manual-base-ref }}
