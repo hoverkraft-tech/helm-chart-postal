@@ -5,6 +5,7 @@
 
 # helm
 postal/values-local.yaml
+postal/charts/**
 
 # TODO list
 .TODO

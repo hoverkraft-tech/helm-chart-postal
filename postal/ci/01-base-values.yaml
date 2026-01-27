@@ -1,0 +1,18 @@
+image:
+  registry: fake.registry
+
+jobs:
+  initialize:
+    enable: false
+
+web:
+  replicaCount: 0
+
+smtp:
+  replicaCount: 0
+
+worker:
+  replicaCount: 0
+
+cert-manager:
+  enabled: true
