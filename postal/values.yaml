@@ -200,8 +200,8 @@ smtp:
   tls:
     # -- enable TLS support for smtp
     enabled: false
-    # -- specify the source of the TLS certificate (for now only cert-manager is supported)
-    source: cert-manager
+    # -- specify the source of the TLS certificate (cert-manager or self-signed are supported)
+    source: self-signed
     # -- specify annotations for the TLS object (cert-manager Certificate)
     annotations: {}
     # -- specify the hosts that must be covered by the TLS certificate
