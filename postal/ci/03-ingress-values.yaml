@@ -2,7 +2,9 @@
 # In production, these values MUST be replaced with actual secrets.
 # Consider using environment variables or secret management systems.
 global:
+  # checkov:skip=CKV_SECRET_6:sample value only
   railsSecretKey: LvH4wQpMsNbzuXcNIkvedxBLT9VSSXcjC5LbIcGOS0x06ooTLqtAnPradCvAjIHS7hO90KdUSjfY4xtMWPb6SRdSLH03JNest3xVNJx0ORzhtJYaJX9wjqfH6NTAHyEt
+  # checkov:skip=CKV_SECRET_13:sample value only
   signingKey: |
     -----BEGIN PRIVATE KEY-----
     MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDSAOXj/qF/TzuP
