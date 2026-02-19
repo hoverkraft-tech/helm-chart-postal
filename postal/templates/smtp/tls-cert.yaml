@@ -25,7 +25,11 @@ spec:
     group: {{ .Values.smtp.tls.certManager.issuer.group }}
 {{- else if and .Values.smtp.tls.enabled (eq .Values.smtp.tls.source "self-signed") }}
 {{- $ca := genCA "test-ca" 365 }}
-{{- $cert := genSignedCert (index .Values.smtp.tls.hosts 0) nil nil 365 $ca }}
+{{- $host := include "postal.smtp.fullname" . }}
+{{- if and .Values.smtp.tls.hosts (gt (len .Values.smtp.tls.hosts) 0) }}
+{{- $host = index .Values.smtp.tls.hosts 0 }}
+{{- end }}
+{{- $cert := genSignedCert $host nil nil 365 $ca }}
 apiVersion: v1
 kind: Secret
 metadata:
