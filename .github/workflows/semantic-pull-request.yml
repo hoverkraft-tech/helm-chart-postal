@@ -2,7 +2,7 @@
 name: "Pull Request - Semantic Lint"
 
 on: # yamllint disable-line rule:truthy
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - edited
@@ -12,7 +12,6 @@ permissions: {}
 
 jobs:
   main:
-    uses: hoverkraft-tech/ci-github-common/.github/workflows/semantic-pull-request.yml@b17226e57c8ef31f860719766656ebb6df017218 # 0.31.6
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
+    uses: hoverkraft-tech/ci-github-common/.github/workflows/semantic-pull-request.yml@90211d735aa0289702ddbd7eb95b218020ccadad # 2.0.2
