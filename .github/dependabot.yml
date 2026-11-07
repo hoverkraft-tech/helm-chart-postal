@@ -2,6 +2,11 @@
 version: 2
 updates:
   - package-ecosystem: "github-actions"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: build
+      include: scope
     directory: "/"
     open-pull-requests-limit: 20
     schedule:
@@ -14,6 +19,11 @@ updates:
           - "*"
 
   - package-ecosystem: "docker"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: build
+      include: scope
     directory: "/"
     open-pull-requests-limit: 20
     schedule:
@@ -26,6 +36,11 @@ updates:
           - "*"
 
   - package-ecosystem: "helm"
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: build
+      include: scope
     directory: "/postal"
     open-pull-requests-limit: 20
     schedule:

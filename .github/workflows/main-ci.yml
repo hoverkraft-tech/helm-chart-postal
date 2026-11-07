@@ -15,13 +15,15 @@ permissions: {}
 jobs:
   ci:
     name: Continuous Integration
-    uses: ./.github/workflows/__shared-ci.yml
+    uses: $/.github/workflows/__shared-ci.yml
     permissions:
       actions: read
       contents: read
-      statuses: write
+      issues: write
+      packages: read
+      pull-requests: write
       security-events: write
-    secrets: inherit
+      statuses: write
 
   helm-docs:
     needs: ci
@@ -31,6 +33,8 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
 
       - uses: hoverkraft-tech/ci-github-container/actions/helm/generate-docs@a0bab9151cc074af9f6c8204ab42a48d2d570379 # 0.30.6
         with:
