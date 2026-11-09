@@ -1,9 +1,9 @@
 dependencies:
 - name: mariadb
   repository: https://charts.bitnami.com/bitnami
-  version: 24.1.1
+  version: 28.1.5
 - name: cert-manager
   repository: https://charts.jetstack.io
-  version: v1.19.3
-digest: sha256:dedc4fe64102ad01f78f2e0d93cfaffbd7838d7003472cf2e5d67e78590bee9a
-generated: "2026-02-16T18:22:17.714365+01:00"
+  version: v1.21.3
+digest: sha256:396d1159363dbd8f2934b6529a1b399099e18ef9315750ab5fc008c4c53a036d
+generated: "2026-11-09T10:50:16.507774966Z"
