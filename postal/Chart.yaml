@@ -35,9 +35,9 @@ maintainers:
 dependencies:
   - name: mariadb
     repository: https://charts.bitnami.com/bitnami
-    version: 24.1.1
+    version: 28.1.5
     condition: mariadb.enabled
   - name: cert-manager
     repository: https://charts.jetstack.io
-    version: 1.19.3
+    version: 1.21.3
     condition: cert-manager.enabled
