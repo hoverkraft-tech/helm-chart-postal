@@ -29,7 +29,7 @@ jobs:
       contents: read
     steps:
       - name: Test helm charts
-        uses: hoverkraft-tech/ci-github-container/actions/helm/test-chart@a0bab9151cc074af9f6c8204ab42a48d2d570379 # 0.30.6
+        uses: hoverkraft-tech/ci-github-container/actions/helm/test-chart@5ffc3c81daacc57700a14bb91d67edbc67eedc1d # 0.39.0
         with:
           helm-repositories: |
             bitnami https://charts.bitnami.com/bitnami
