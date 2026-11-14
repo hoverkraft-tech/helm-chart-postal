@@ -14,61 +14,18 @@ A Helm chart for Kubernetes
 
 ## Requirements
 
-| Repository                           | Name    | Version |
-| ------------------------------------ | ------- | ------- |
-| <https://charts.bitnami.com/bitnami> | mariadb | 16._._  |
-
-## Security Configuration
-
-### ⚠️ **IMPORTANT SECURITY NOTICE** ⚠️
-
-The CI test files in this repository (`ci/base-values.yaml`, `ci/ingress-values.yaml`, `ci/smtp-tls-values.yaml`) contain **EXAMPLE VALUES ONLY**. These are placeholder values for testing and CI purposes.
-
-**YOU MUST REPLACE THESE VALUES IN PRODUCTION:**
-
-#### Required Secrets
-
-1. **Rails Secret Key** (`global.railsSecretKey`):
-
-   ```bash
-   # Generate a secure 128-character secret key
-   openssl rand -hex 64
-   ```
-
-2. **Signing Key** (`global.signingKey`):
-   ```bash
-   # Generate a 2048-bit RSA private key
-   openssl genrsa -out signing.key 2048
-   ```
-
-#### Security Best Practices
-
-- **Never use the example values** from CI files in production
-- Store secrets securely using:
-  - Kubernetes Secrets
-  - External secret management systems (HashiCorp Vault, AWS Secrets Manager, etc.)
-  - Environment variables (in secure environments)
-- Use `global.existingSecretName` to reference pre-created Kubernetes secrets
-- Regularly rotate your secrets
-- Ensure proper RBAC is configured for secret access
-
-#### Example Production Configuration
-
-```yaml
-global:
-  existingSecretName: "postal-secrets" # Reference existing Kubernetes secret
-  # OR provide values directly (not recommended for production)
-  railsSecretKey: "your-actual-128-char-secret-key-here"
-  signingKey: |
-    -----BEGIN RSA PRIVATE KEY-----
-    your-actual-private-key-content-here
-    -----END RSA PRIVATE KEY-----
-```
+| Repository                           | Name         | Version |
+| ------------------------------------ | ------------ | ------- |
+| <https://charts.bitnami.com/bitnami> | mariadb      | 24.1.1  |
+| <https://charts.jetstack.io>         | cert-manager | 1.19.3  |
 
 ## Values
 
 | Key                                                        | Type   | Default                                                                     | Description                                                                                                                   |
 | ---------------------------------------------------------- | ------ | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| cert-manager.crds.enabled                                  | bool   | `false`                                                                     |                                                                                                                               |
+| cert-manager.enabled                                       | bool   | `false`                                                                     |                                                                                                                               |
+| cert-manager.fullnameOverride                              | string | `"cert-manager"`                                                            |                                                                                                                               |
 | clamAv.enabled                                             | bool   | `false`                                                                     |                                                                                                                               |
 | clamAv.host                                                | string | `""`                                                                        |                                                                                                                               |
 | clamAv.port                                                | int    | `2000`                                                                      |                                                                                                                               |
@@ -134,7 +91,8 @@ global:
 | mariadb.auth.username                                      | string | `"postal"`                                                                  |                                                                                                                               |
 | mariadb.enabled                                            | bool   | `true`                                                                      |                                                                                                                               |
 | mariadb.fullnameOverride                                   | string | `"postal-mariadb"`                                                          |                                                                                                                               |
-| mariadb.initdbScripts."grant_privileges.sql"               | string | `"GRANT ALL PRIVILEGES ON`postal%`.* TO 'postal'@'%' WITH GRANT OPTION;\n"` |                                                                                                                               |
+| mariadb.image.digest                                       | string | `"sha256:687181819d6e3f04124a21aec1aeef1d8a5d6a924c0d8e8f0cf66b8f0ce15a7c"` |                                                                                                                               |
+| mariadb.initdbScripts."grant_privileges.sql"               | string | See the SQL statement in values.yaml.                                       | Grants Postal permission to create its mail server databases.                                                                 |
 | nameOverride                                               | string | `""`                                                                        |                                                                                                                               |
 | smtp.affinity                                              | object | `{}`                                                                        |                                                                                                                               |
 | smtp.containerPort                                         | int    | `25`                                                                        |                                                                                                                               |
@@ -163,7 +121,7 @@ global:
 | smtp.tls.certManager.issuer.name                           | string | `"lestencrypt"`                                                             | cert-manager issuer name                                                                                                      |
 | smtp.tls.enabled                                           | bool   | `false`                                                                     | enable TLS support for smtp                                                                                                   |
 | smtp.tls.hosts                                             | list   | `[]`                                                                        | specify the hosts that must be covered by the TLS certificate                                                                 |
-| smtp.tls.source                                            | string | `"cert-manager"`                                                            | specify the source of the TLS certificate (for now only cert-manager is supported)                                            |
+| smtp.tls.source                                            | string | `"self-signed"`                                                             | specify the source of the TLS certificate (cert-manager or self-signed are supported)                                         |
 | smtp.tolerations                                           | list   | `[]`                                                                        |                                                                                                                               |
 | spamAssassin.enabled                                       | bool   | `false`                                                                     |                                                                                                                               |
 | spamAssassin.host                                          | string | `""`                                                                        |                                                                                                                               |

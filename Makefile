@@ -1,37 +1,43 @@
-.PHONY: help
+LINTER_IMAGE ?= helm-chart-postal-linter:local
+FILTER ?= $(or $(filter-out lint lint-fix,$(MAKECMDGOALS)),.*)
 
-help: ## Display help
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+.DEFAULT_GOAL := help
+.PHONY: help lint lint-fix
 
-lint: ## Execute linting
+help: ## Display available commands
+	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-18s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+lint: ## Run the repository lint checks (optional FILTER=regex)
 	$(call run_linter,)
 
-lint-fix: ## Execute linting and fix
+lint-fix: ## Apply supported automatic lint fixes (optional FILTER=regex)
 	$(call run_linter, \
-		-e FIX_JSON_PRETTIER=true \
-		-e FIX_YAML_PRETTIER=true \
+		-e FIX_BIOME_LINT=true \
+		-e FIX_BIOME_FORMAT=true \
 		-e FIX_MARKDOWN=true \
 		-e FIX_MARKDOWN_PRETTIER=true \
+		-e FIX_YAML_PRETTIER=true \
 		-e FIX_NATURAL_LANGUAGE=true \
+		-e FIX_SHELL_SHFMT=true \
+		-e FIX_SPELL_CODESPELL=true \
 	)
 
 define run_linter
-	DEFAULT_WORKSPACE="$(CURDIR)"; \
-	LINTER_IMAGE="linter:latest"; \
-	VOLUME="$$DEFAULT_WORKSPACE:$$DEFAULT_WORKSPACE"; \
-	docker build --build-arg UID=$(shell id -u) --build-arg GID=$(shell id -g) --tag $$LINTER_IMAGE .; \
-	docker run \
-		-e DEFAULT_WORKSPACE="$$DEFAULT_WORKSPACE" \
-		-e FILTER_REGEX_INCLUDE="$(filter-out $@,$(MAKECMDGOALS))" \
-		-e IGNORE_GITIGNORED_FILES=true \
+	@set -eu; \
+	git_common_dir="$$(git rev-parse --path-format=absolute --git-common-dir)"; \
+	docker build --platform linux/amd64 --target linter \
+		--build-arg UID="$$(id -u)" --build-arg GID="$$(id -g)" \
+		--tag "$(LINTER_IMAGE)" .; \
+	docker run --platform linux/amd64 --rm \
+		--volume "$(CURDIR):$(CURDIR)" \
+		--volume "$$git_common_dir:$$git_common_dir:ro" \
+		-e DEFAULT_WORKSPACE="$(CURDIR)" \
+		-e FILTER_REGEX_INCLUDE="$(FILTER)" \
 		$(1) \
-		-v $$VOLUME \
-		--rm \
-		$$LINTER_IMAGE
+		"$(LINTER_IMAGE)"
 endef
 
-#############################
-# Argument fix workaround
-#############################
+# Allow the shared "make lint <pattern>" interface without hiding other target typos.
+ifneq ($(filter lint lint-fix,$(MAKECMDGOALS)),)
 %:
 	@:
+endif
