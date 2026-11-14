@@ -2,8 +2,6 @@
 name: "Prepare release"
 
 on: # yamllint disable-line rule:truthy
-  push:
-    branches: [main]
   pull_request:
     types: [opened, reopened, synchronize]
 
@@ -15,12 +13,8 @@ permissions: {}
 
 jobs:
   release:
-    uses: hoverkraft-tech/ci-github-publish/.github/workflows/prepare-release.yml@84e8ace407055e7a40ba6670a8c697e1ce2dfafa # 0.20.1
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    uses: hoverkraft-tech/ci-github-publish/.github/workflows/prepare-release.yml@5b821495b1c3b68eb2e7fba71992dfe851612ae6 # 3.0.3
     permissions:
-      contents: write
-      id-token: write
+      contents: read
       pull-requests: write
-    with:
-      github-app-id: ${{ vars.CI_BOT_APP_ID }}
-    secrets:
-      github-app-key: ${{ secrets.CI_BOT_APP_PRIVATE_KEY }}
