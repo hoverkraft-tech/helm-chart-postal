@@ -11,15 +11,14 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
-commonsAnnotations:
-  {}
+commonsAnnotations: {}
   # argocd.argoproj.io/sync-wave: "1"
   # helm.sh/hook: "pre-install,pre-upgrade"
   # helm.sh/hook-delete-policy: "before-hook-creation,hook-succeeded"
   # helm.sh/hook-weight: "1"
 
 global:
-  # use an existing secret instead of the automaticaly generated one
+  # use an existing secret instead of the automatically generated one
   existingSecretName: ""
   # -- key used to sign emails.
   # Generate it using `openssl genrsa -out path/to/signing.key 2048`
@@ -114,12 +113,10 @@ web:
 
   podAnnotations: {}
 
-  podSecurityContext:
-    {}
+  podSecurityContext: {}
     # fsGroup: 2000
 
-  securityContext:
-    {}
+  securityContext: {}
     # capabilities:
     #   drop:
     #   - ALL
@@ -147,8 +144,7 @@ web:
     #    hosts:
     #      - chart-example.local
 
-  resources:
-    {}
+  resources: {}
     # We usually recommend not to specify default resources and to leave this as a conscious
     # choice for the user. This also increases chances charts run on environments with little
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -224,8 +220,7 @@ smtp:
 
   podAnnotations: {}
 
-  podSecurityContext:
-    {}
+  podSecurityContext: {}
     # fsGroup: 2000
 
   securityContext: {}
@@ -404,6 +399,9 @@ jobs:
 
 # dependencies
 mariadb:
+  image:
+    # Immutable version of the upstream chart's selected image.
+    digest: sha256:687181819d6e3f04124a21aec1aeef1d8a5d6a924c0d8e8f0cf66b8f0ce15a7c
   # check available values here: https://artifacthub.io/packages/helm/bitnami/mariadb?modal=values-schema
   enabled: true
   # TODO: we should switch to templating for the name to avoid using reference to fullname override everywhere
@@ -414,6 +412,8 @@ mariadb:
     password: "postal"
   initdbScripts:
     # NOTE: postal is creating postal-server-* databases to handle postal mail servers configuration
+    # -- Grants Postal permission to create its mail server databases.
+    # @default -- See the SQL statement in values.yaml.
     grant_privileges.sql: |
       GRANT ALL PRIVILEGES ON `postal%`.* TO 'postal'@'%' WITH GRANT OPTION;
 

@@ -39,25 +39,18 @@ spec:
             - name: http
               containerPort: {{ .Values.web.containerPort }}
               protocol: TCP
-          env:
-            - name: MAIN_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.global.secretName  }}
-                  key: mariadb-password
-            - name: MESSAGE_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.global.secretName }}
-                  key: mariadb-password
-            - name: RAILS_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.global.secretName }}
-                  key: rails-secret-key
-          envFrom:
-            - configMapRef:
-                name: {{ include "postal.fullname" . }}
+          startupProbe:
+            tcpSocket:
+              port: http
+            failureThreshold: 30
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: http
+          readinessProbe:
+            tcpSocket:
+              port: http
+          {{- include "postal.environment" . | nindent 10 }}
           command:
             - postal
             - web-server

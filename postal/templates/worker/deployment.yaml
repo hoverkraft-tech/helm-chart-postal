@@ -49,25 +49,7 @@ spec:
             httpGet:
               path: /health
               port: metrics
-          env:
-            - name: MAIN_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.global.secretName }}
-                  key: mariadb-password
-            - name: MESSAGE_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.global.secretName }}
-                  key: mariadb-password
-            - name: RAILS_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.global.secretName }}
-                  key: rails-secret-key
-          envFrom:
-            - configMapRef:
-                name: {{ include "postal.fullname" . }}
+          {{- include "postal.environment" . | nindent 10 }}
           command:
             - postal
             - worker
