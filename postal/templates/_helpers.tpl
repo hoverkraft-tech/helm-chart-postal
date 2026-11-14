@@ -43,3 +43,47 @@ Selector labels
 app.kubernetes.io/name: {{ include "postal.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+{{/* Component names preserve the same overrides as the root chart. */}}
+{{- define "postal.component.name" -}}
+{{- default .root.Chart.Name .values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "postal.component.fullname" -}}
+{{- if .values.fullnameOverride -}}
+{{- .values.fullnameOverride | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- $name := default .root.Chart.Name .values.nameOverride -}}
+{{- if contains $name .root.Release.Name -}}
+{{- .root.Release.Name | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
+{{- printf "%s-%s" .root.Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "postal.chart" -}}
+{{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/* Shared environment references for all Postal application components. */}}
+{{- define "postal.environment" -}}
+env:
+  - name: MAIN_DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Values.global.secretName }}
+        key: mariadb-password
+  - name: MESSAGE_DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Values.global.secretName }}
+        key: mariadb-password
+  - name: RAILS_SECRET_KEY
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Values.global.secretName }}
+        key: rails-secret-key
+envFrom:
+  - configMapRef:
+      name: {{ include "postal.fullname" . }}
+{{- end -}}

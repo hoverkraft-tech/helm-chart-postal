@@ -1,4 +1,5 @@
 {
-	"threshold": 5,
-	"ignore": ["**/postal/**"]
+	"threshold": 0,
+	"minTokens": 100,
+	"ignore": ["**/*.svg", "**/*.lock", "**/*.schema.json"]
 }

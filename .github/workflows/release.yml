@@ -1,34 +1,40 @@
----
-name: 🚀 Release
+# Prepare committed chart versions, validate the dispatched tag, then publish.
+name: Release
 
-on: # yamllint disable-line rule:truthy
+on:
+  # checkov:skip=CKV_GHA_7:Force overrides only the no-change plan, never validation or publication checks.
   workflow_dispatch:
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+    inputs:
+      force:
+        description: Release even without changes
+        type: boolean
+        default: false
+  schedule:
+    - cron: "25 8 * * 1"
 
 permissions: {}
 
-jobs:
-  check-branches:
-    name: Check branches
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check branch
-        env:
-          RELEASE_REF: ${{ github.ref_name }}
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-        run: |
-          if [[ "$RELEASE_REF" != "$DEFAULT_BRANCH" ]]; then
-            echo "This action can only be run on the $DEFAULT_BRANCH branch"
-            exit 1
-          fi
-          echo "Branch check passed. Proceeding with the release."
+concurrency:
+  group: release-${{ github.repository }}
+  cancel-in-progress: false
 
-  ci:
-    needs: check-branches
-    name: Continuous Integration
+jobs:
+  prepare:
+    uses: hoverkraft-tech/ci-github-container/.github/workflows/prepare-chart-release.yml@b055d6ce0f3a5e223615ad494d88d92e17af11e5 # 4.2.0
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: read
+    with:
+      path: postal
+      force: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
+      github-app-client-id: ${{ vars.CI_BOT_APP_CLIENT_ID }}
+    secrets:
+      github-app-key: ${{ secrets.CI_BOT_APP_PRIVATE_KEY }}
+
+  validate:
+    needs: prepare
+    if: needs.prepare.outputs.status == 'ready'
     uses: $/.github/workflows/__shared-ci.yml
     permissions:
       actions: read
@@ -38,45 +44,31 @@ jobs:
       pull-requests: write
       security-events: write
       statuses: write
+    with:
+      upload-artifact: true
 
   release:
-    needs: ci
-    name: Release
+    name: Publish validated chart and GitHub release
+    needs: [prepare, validate]
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    outputs:
-      tag: ${{ steps.create-release.outputs.tag }}
-    steps:
-      - id: create-release
-        uses: hoverkraft-tech/ci-github-publish/actions/release/create@84e8ace407055e7a40ba6670a8c697e1ce2dfafa # 0.20.1
-
-  release-chart:
-    name: "Release Helm Chart"
-    needs: release
-    runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: write
       packages: write
-      pull-requests: write
+      id-token: write
+      pull-requests: read
     steps:
-      - id: release
-        uses: hoverkraft-tech/ci-github-container/actions/helm/release-chart@a0bab9151cc074af9f6c8204ab42a48d2d570379 # 0.30.6
+      - name: Publish and sign validated archive
+        id: publish
+        uses: hoverkraft-tech/ci-github-container/actions/helm/release-chart@b055d6ce0f3a5e223615ad494d88d92e17af11e5 # 4.2.0
         with:
-          chart: postal
-          path: ./postal
-          tag: ${{ needs.release.outputs.tag }}
-          oci-registry: ghcr.io
-          oci-registry-password: ${{ secrets.GITHUB_TOKEN }}
-          update-tag-paths: .version
+          artifact-id: ${{ needs.validate.outputs.artifact-id }}
+          archive-name: ${{ needs.validate.outputs.archive-name }}
+          checksum: ${{ needs.validate.outputs.checksum }}
+          oci-repository: ${{ github.repository }}/charts/postal
 
-      - uses: hoverkraft-tech/ci-github-common/actions/create-and-merge-pull-request@b17226e57c8ef31f860719766656ebb6df017218 # 0.31.6
+      - uses: hoverkraft-tech/ci-github-publish/actions/release/create@80fa7011b27f49f2e04a19f932d36047d17a28f2 # 3.0.7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          branch: release-chart-${{ needs.release.outputs.tag }}
-          title: "ci: release chart ${{ needs.release.outputs.tag }}"
-          body: Release app and chart version ${{ needs.release.outputs.tag }}
-          commit-message: |
-            ci: release chart ${{ needs.release.outputs.tag }}
-
-            [skip ci]
+          tag: ${{ needs.prepare.outputs.tag }}
+          target-ref: ${{ github.sha }}
+          changelog-summary: ${{ format('{{"llmAuth":{0},"llmProvider":"openai"}}', toJSON(secrets.OPENAI_API_KEY)) }}
