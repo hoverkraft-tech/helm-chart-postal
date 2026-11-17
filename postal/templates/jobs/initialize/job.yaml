@@ -4,6 +4,8 @@ kind: Job
 metadata:
   name: {{ include "postal.jobs.initialize.fullname" . }}
   annotations:
+    checkov.io/skip1: CKV_K8S_8=The initialization job exits after setup.
+    checkov.io/skip2: CKV_K8S_9=The initialization job exits after setup.
   {{- with .Values.commonsAnnotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}

@@ -1,0 +1,28 @@
+{
+	"name": "helm-chart-postal",
+	"image": "mcr.microsoft.com/devcontainers/base:debian",
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"configureZshAsDefaultShell": true
+		},
+		"ghcr.io/devcontainers/features/docker-in-docker:4": {
+			"moby": false
+		},
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+			"minikube": "none"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"eamodio.gitlens",
+				"github.vscode-github-actions",
+				"ms-vscode.makefile-tools",
+				"biomejs.biome",
+				"Tim-Koehler.helm-intellisense",
+				"redhat.vscode-yaml"
+			]
+		}
+	}
+}

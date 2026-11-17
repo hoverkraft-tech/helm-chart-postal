@@ -1,0 +1,33 @@
+# Deployment policies and rationale: docs/development/linting.md
+# All other checks remain enabled, including image tags and secret detection.
+skip-check:
+  # NetworkPolicy is cluster-specific and must allow the configured services and egress.
+  - CKV2_K8S_6
+  # CPU limits are selected through values for the target workload and cluster.
+  - CKV_K8S_11
+  # Memory limits are selected through values for the target workload and cluster.
+  - CKV_K8S_13
+  # Versioned images support IfNotPresent; pull policy is configurable.
+  - CKV_K8S_15
+  # Privilege escalation policy belongs to the configured container security context.
+  - CKV_K8S_20
+  # The installer chooses the release namespace; scanners render in default.
+  - CKV_K8S_21
+  # Filesystem policy must match writable application paths and mounted storage.
+  - CKV_K8S_22
+  # UID policy must match the selected image and existing volume ownership.
+  - CKV_K8S_23
+  # Capabilities are selected through the container security context.
+  - CKV_K8S_28
+  # The seccomp profile must match the workload and cluster runtime.
+  - CKV_K8S_31
+  # The application consumes credentials from Kubernetes Secret environment references.
+  - CKV_K8S_35
+  # Capabilities are selected through the container security context.
+  - CKV_K8S_37
+  # Service-account configuration is controlled by the installer.
+  - CKV_K8S_38
+  # UID policy must match the selected image and existing volume ownership.
+  - CKV_K8S_40
+  # Chart defaults use versioned upstream images; consumers may pin deployment digests.
+  - CKV_K8S_43
