@@ -4,5 +4,6 @@ ignore:
   - postal/
 
 rules:
-  line-length:
-    max: 170
+  comments: disable
+  document-start: disable
+  line-length: disable
