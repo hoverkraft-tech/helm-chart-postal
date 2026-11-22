@@ -3,4 +3,3 @@ exit-on-eol: 2
 scan:
   disable-telemetry: true
   scanners: [vuln, misconfig, secret]
-ignorefile: .github/linters/trivy-exceptions.yaml

@@ -1,9 +1,8 @@
 extends: default
 
-# Raw Go templates are not YAML. Helm and Kubeconform validate their output.
 ignore: |
-  **/templates/**
+  - postal/
 
 rules:
-  document-start: disable
-  line-length: disable
+  line-length:
+    max: 170
