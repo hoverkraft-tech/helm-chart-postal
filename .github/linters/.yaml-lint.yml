@@ -1,6 +1,6 @@
 extends: default
 
-ignore: |
+ignore:
   - postal/
 
 rules:
