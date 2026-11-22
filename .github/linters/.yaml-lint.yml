@@ -2,7 +2,16 @@
 extends: default
 
 ignore:
-  - postal/templates/
+  - postal/templates/jobs/initialize/serviceaccount.yaml
+  - postal/templates/secret.yaml
+  - postal/templates/smtp/deployment.yaml
+  - postal/templates/smtp/service-metrics.yaml
+  - postal/templates/web/ingress.yaml
+  - postal/templates/web/service.yaml
+  - postal/templates/web/serviceaccount.yaml
+  - postal/ci/00-hack-values.yaml
+  - postal/ci/01-base-values.yaml
+  - postal/ci/02-smtp-tls-values.yaml
 
 rules:
   line-length:
