@@ -1,102 +1,12 @@
-<?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:ns2="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1280 640" width="1280" height="640" role="img" aria-labelledby="title description">
-  <title id="title">Postal by Hoverkraft</title>
-  <desc id="description">A Helm chart for your email delivery platform</desc>
-  <rect width="1280" height="640" fill="#1d2026" />
-  <rect width="12" height="640" fill="#1998ff" />
-  <svg role="img" aria-label="Hoverkraft" xml:space="preserve" width="255" height="56" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 283.33 61.24" x="64" y="58">
-    <defs>
-      <style type="text/css">
-
-    .fil0 {fill:#1998FF}
-    .fil2 {fill:#256DD9;fill-rule:nonzero}
-    .fil1 {fill:#ADE5FF;fill-rule:nonzero}
-    .fil15 {fill:white;fill-rule:nonzero}
-    .fil3 {fill:url(#id0)}
-    .fil6 {fill:url(#id1)}
-    .fil14 {fill:url(#id2)}
-    .fil7 {fill:url(#id3)}
-    .fil11 {fill:url(#id4)}
-    .fil4 {fill:url(#id5)}
-    .fil5 {fill:url(#id6)}
-    .fil13 {fill:url(#id7)}
-    .fil8 {fill:url(#id8)}
-    .fil12 {fill:url(#id9)}
-    .fil9 {fill:url(#id10)}
-    .fil10 {fill:url(#id11)}
-
-  </style>
-      <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="29.33" y1="31.81" x2="26.96" y2="31.81">
-        <stop offset="0" style="stop-opacity:1; stop-color:#1F346E" />
-        <stop offset="1" style="stop-opacity:1; stop-color:#256DD9" />
-      </linearGradient>
-      <linearGradient id="id1" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="12.85" y1="18.23" x2="12.84" y2="20.04">
-  </linearGradient>
-      <linearGradient id="id2" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="44.71" y1="32.61" x2="42.76" y2="33.98">
-  </linearGradient>
-      <linearGradient id="id3" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="34.95" y1="25.73" x2="32.58" y2="25.73">
-  </linearGradient>
-      <linearGradient id="id4" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="34.95" y1="37.86" x2="32.58" y2="37.86">
-  </linearGradient>
-      <linearGradient id="id5" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="18.89" y1="34.1" x2="16.52" y2="34.1">
-  </linearGradient>
-      <linearGradient id="id6" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="18.89" y1="24.14" x2="16.52" y2="24.14">
-  </linearGradient>
-      <linearGradient id="id7" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="39.56" y1="25.45" x2="38.53" y2="24.61">
-  </linearGradient>
-      <linearGradient id="id8" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="23.3" y1="18.23" x2="23.28" y2="20.04">
-  </linearGradient>
-      <linearGradient id="id9" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="34.71" y1="18.23" x2="34.7" y2="20.04">
-  </linearGradient>
-      <linearGradient id="id10" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="28.91" y1="18.23" x2="28.89" y2="20.04">
-  </linearGradient>
-      <linearGradient id="id11" gradientUnits="userSpaceOnUse" xlink:href="#id0" x1="9.78" y1="24.69" x2="9.77" y2="26.5">
-  </linearGradient>
-    </defs>
-    <g id="Layer_x0020_1">
-      <metadata id="CorelCorpID_0Corel-Layer" />
-      <g id="_2145047763408">
-        <g>
-          <path class="fil0" d="M6.65 43.3l47.63 0c3.02,0 5.49,2.48 5.49,5.49l0 0c0,3.02 -2.47,5.49 -5.49,5.49l-47.63 0c-3.02,0 -5.49,-2.47 -5.49,-5.49l0 0c0,-3.01 2.47,-5.49 5.49,-5.49zm27.35 13.88l16.39 0c1.12,0 2.03,0.92 2.03,2.03 0,1.12 -0.91,2.03 -2.03,2.03l-16.39 0c-1.11,0 -2.02,-0.91 -2.02,-2.03 0,-1.11 0.91,-2.03 2.02,-2.03zm-23.46 0l16.39 0c1.11,0 2.02,0.92 2.02,2.03 0,1.12 -0.91,2.03 -2.02,2.03l-16.39 0c-1.12,0 -2.03,-0.91 -2.03,-2.03 0,-1.11 0.91,-2.03 2.03,-2.03z" />
-          <path class="fil0" d="M12.52 15.04l0.07 0c1.46,-8.54 8.9,-15.04 17.86,-15.04 8.96,0 16.4,6.5 17.86,15.04l0.08 0c6.88,0 12.51,5.64 12.51,12.52 0,6.88 -5.63,12.52 -12.51,12.52l-35.87 0c-6.89,0 -12.52,-5.64 -12.52,-12.52 0,-6.88 5.63,-12.52 12.52,-12.52z" />
-          <g>
-            <path class="fil1" d="M14.76 34.93l0 -16.5 0.43 -0.4 0 0.4 3.49 0 0 6.46 6.52 0 0 -6.46 0.43 -0.4 0 0.4 3.49 0 0.43 16.09 -0.43 0.41 -3.92 0 0 -6.81 -6.52 0 0.42 6.4 -0.42 0.41 -3.92 0zm16.05 -16.5l0.43 -0.4 0 0.4 3.05 0 0 4.05 -0.04 3.82 0.03 -0.04c0.32,-0.52 0.67,-1.05 1.06,-1.58 0.39,-0.53 0.82,-1.11 1.33,-1.74l3.68 -4.51 0.87 -0.4 4.26 0.4 -5.97 7.12 6.64 8.97 -0.43 0.41 -4.6 0 -4.28 -6.79 -2.11 2.42 0.43 3.96 -0.43 0.41 -3.92 0 0 -16.5z" />
-            <path class="fil2" d="M15.19 34.52l0 -16.49 3.91 0 0 6.45 6.53 0 0 -6.45 3.92 0 0 16.49 -3.92 0 0 -6.8 -6.53 0 0 6.8 -3.91 0zm26.36 0l-4.28 -6.78 -2.11 2.42 0 4.36 -3.92 0 0 -16.49 3.92 0 0 4.05 -0.05 3.82 0.03 -0.05c0.33,-0.52 0.68,-1.04 1.07,-1.57 0.39,-0.53 0.83,-1.11 1.33,-1.75l3.68 -4.5 4.69 0 -5.98 7.12 6.22 9.37 -4.6 0z" />
-            <polygon class="fil3" points="29.55,18.03 26.7,20.44 26.7,34.52 29.55,34.52 " />
-            <polygon class="fil4" points="16.26,30.12 16.26,34.52 19.1,34.52 19.1,27.72 " />
-            <polygon class="fil5" points="19.1,18.03 16.26,20.44 16.26,26.89 19.1,24.48 " />
-            <polygon class="fil6" points="19.1,18.03 15.74,20.88 15.19,20.88 15.19,18.03 " />
-            <polygon class="fil7" points="35.16,18.03 32.31,20.44 32.31,28.97 35.16,25.9 " />
-            <polygon class="fil8" points="29.55,18.03 26.18,20.88 25.63,20.88 25.63,18.03 " />
-            <polygon class="fil9" points="35.16,18.03 31.8,20.88 31.24,20.88 31.24,18.03 " />
-            <polygon class="fil10" points="25.63,24.48 22.26,27.33 15.7,27.33 19.1,24.48 " />
-            <polygon class="fil11" points="35.16,30.16 32.31,33.39 32.31,34.52 35.16,34.52 " />
-            <polygon class="fil12" points="45.91,18.03 41.15,20.88 38.89,20.88 41.22,18.03 " />
-            <polygon class="fil13" points="45.91,18.03 42.55,19.92 37.53,26.27 39.93,25.15 " />
-            <polygon class="fil14" points="39.93,25.15 37.53,26.27 42.83,34.52 46.15,34.52 " />
-          </g>
-        </g>
-        <path class="fil15" d="M282.85 25.66l0 5.45 -14.86 0 0 -5.45 14.86 0zm-202.12 10.07l0 13.1 -7.31 0 0 -31.28 7.18 0 0 14.02 -0.61 0c0.6,-1.89 1.53,-3.4 2.76,-4.54 1.24,-1.15 2.9,-1.71 4.99,-1.71 1.64,0 3.06,0.36 4.25,1.08 1.19,0.72 2.12,1.74 2.78,3.06 0.66,1.33 0.98,2.87 0.98,4.65l0 14.72 -7.3 0 0 -13.29c0,-1.31 -0.33,-2.34 -0.99,-3.08 -0.67,-0.73 -1.59,-1.1 -2.78,-1.1 -0.79,0 -1.48,0.17 -2.07,0.52 -0.6,0.34 -1.06,0.83 -1.39,1.48 -0.33,0.64 -0.49,1.43 -0.49,2.37zm29.07 13.56c-2.41,0 -4.5,-0.5 -6.26,-1.5 -1.76,-1 -3.12,-2.4 -4.08,-4.2 -0.94,-1.8 -1.42,-3.89 -1.42,-6.28 0,-2.4 0.48,-4.5 1.42,-6.29 0.96,-1.8 2.32,-3.2 4.08,-4.2 1.76,-1 3.85,-1.5 6.26,-1.5 2.42,0 4.5,0.5 6.26,1.5 1.75,1 3.11,2.4 4.06,4.2 0.95,1.79 1.43,3.89 1.43,6.29 0,2.39 -0.48,4.48 -1.43,6.28 -0.95,1.8 -2.31,3.2 -4.06,4.2 -1.76,1 -3.84,1.5 -6.26,1.5zm0 -5.65c0.92,0 1.7,-0.26 2.35,-0.79 0.64,-0.52 1.13,-1.26 1.47,-2.21 0.33,-0.95 0.5,-2.07 0.5,-3.36 0,-1.3 -0.17,-2.42 -0.5,-3.37 -0.34,-0.94 -0.83,-1.67 -1.47,-2.19 -0.65,-0.52 -1.43,-0.78 -2.35,-0.78 -0.91,0 -1.69,0.26 -2.35,0.78 -0.65,0.52 -1.14,1.25 -1.47,2.19 -0.34,0.95 -0.51,2.07 -0.51,3.37 0,1.29 0.17,2.41 0.51,3.36 0.33,0.95 0.82,1.69 1.47,2.21 0.66,0.53 1.44,0.79 2.35,0.79zm19.26 5.19l-8.42 -23.17 7.68 0 3.44 11.18c0.46,1.51 0.88,3.05 1.24,4.61 0.36,1.56 0.73,3.19 1.09,4.9l-1.43 0c0.37,-1.71 0.72,-3.34 1.08,-4.89 0.35,-1.55 0.74,-3.09 1.19,-4.62l3.38 -11.18 7.6 0 -8.44 23.17 -8.41 0zm27.49 0.46c-2.4,0 -4.49,-0.49 -6.25,-1.47 -1.76,-0.98 -3.12,-2.37 -4.06,-4.16 -0.95,-1.79 -1.42,-3.91 -1.42,-6.35 0,-2.38 0.47,-4.47 1.42,-6.27 0.94,-1.8 2.28,-3.21 4.01,-4.21 1.73,-1.01 3.75,-1.51 6.05,-1.51 1.65,0 3.17,0.26 4.55,0.79 1.37,0.52 2.57,1.29 3.59,2.3 1.01,1.01 1.79,2.25 2.35,3.72 0.55,1.46 0.83,3.13 0.83,5.03l0 1.87 -20.28 0 0 -4.29 16.81 0 -3.4 0.99c0,-1.07 -0.17,-1.98 -0.5,-2.74 -0.33,-0.76 -0.83,-1.34 -1.47,-1.75 -0.64,-0.41 -1.44,-0.61 -2.39,-0.61 -0.94,0 -1.74,0.21 -2.39,0.61 -0.66,0.42 -1.16,1 -1.51,1.74 -0.34,0.74 -0.51,1.62 -0.51,2.64l0 3.09c0,1.15 0.19,2.11 0.58,2.91 0.38,0.79 0.93,1.38 1.64,1.78 0.71,0.4 1.55,0.6 2.5,0.6 0.67,0 1.28,-0.09 1.83,-0.28 0.54,-0.19 1.01,-0.47 1.39,-0.83 0.39,-0.35 0.68,-0.78 0.88,-1.31l6.5 0.84c-0.36,1.38 -1.03,2.57 -2,3.61 -0.98,1.02 -2.2,1.82 -3.69,2.4 -1.48,0.57 -3.16,0.86 -5.06,0.86zm13.08 -0.46l0 -23.17 7.08 0 0 4.19 0.21 0c0.42,-1.52 1.1,-2.65 2.06,-3.37 0.95,-0.72 2.09,-1.08 3.41,-1.08 0.36,0 0.71,0.02 1.06,0.06 0.36,0.03 0.7,0.08 1.01,0.15l0 6.28c-0.34,-0.1 -0.79,-0.17 -1.36,-0.22 -0.57,-0.05 -1.08,-0.07 -1.54,-0.07 -0.9,0 -1.69,0.19 -2.4,0.58 -0.69,0.39 -1.24,0.94 -1.63,1.65 -0.39,0.7 -0.59,1.54 -0.59,2.51l0 12.49 -7.31 0zm23.59 -6.13l0 -8.71 1.01 0 6.71 -8.33 8.34 0 -9.83 11.88 -1.9 0 -4.33 5.16zm-6.57 6.13l0 -31.28 7.31 0 0 31.28 -7.31 0zm14.53 0l-6.22 -9.66 4.79 -5.18 9.86 14.84 -8.43 0zm10.7 0l0 -23.17 7.08 0 0 4.19 0.2 0c0.42,-1.52 1.11,-2.65 2.06,-3.37 0.95,-0.72 2.09,-1.08 3.42,-1.08 0.35,0 0.71,0.02 1.06,0.06 0.36,0.03 0.69,0.08 1,0.15l0 6.28c-0.33,-0.1 -0.79,-0.17 -1.35,-0.22 -0.58,-0.05 -1.08,-0.07 -1.55,-0.07 -0.9,0 -1.69,0.19 -2.39,0.58 -0.7,0.39 -1.25,0.94 -1.64,1.65 -0.39,0.7 -0.58,1.54 -0.58,2.51l0 12.49 -7.31 0zm23.74 0.42c-1.49,0 -2.82,-0.26 -3.99,-0.77 -1.16,-0.51 -2.07,-1.27 -2.72,-2.27 -0.66,-1.02 -0.99,-2.29 -0.99,-3.82 0,-1.29 0.23,-2.38 0.68,-3.26 0.46,-0.89 1.08,-1.6 1.89,-2.15 0.81,-0.56 1.73,-0.98 2.78,-1.27 1.05,-0.3 2.17,-0.49 3.36,-0.59 1.33,-0.11 2.4,-0.24 3.21,-0.36 0.81,-0.14 1.4,-0.33 1.77,-0.59 0.36,-0.27 0.54,-0.63 0.54,-1.08l0 -0.11c0,-0.52 -0.12,-0.96 -0.38,-1.33 -0.25,-0.38 -0.61,-0.66 -1.07,-0.86 -0.48,-0.19 -1.04,-0.29 -1.72,-0.29 -0.67,0 -1.26,0.11 -1.77,0.31 -0.51,0.2 -0.94,0.48 -1.26,0.85 -0.33,0.36 -0.55,0.79 -0.66,1.28l-6.66 -0.68c0.27,-1.4 0.85,-2.61 1.73,-3.66 0.89,-1.04 2.07,-1.85 3.54,-2.42 1.47,-0.57 3.21,-0.86 5.21,-0.86 1.48,0 2.85,0.17 4.11,0.51 1.26,0.34 2.36,0.85 3.29,1.51 0.93,0.67 1.65,1.48 2.16,2.45 0.51,0.96 0.77,2.08 0.77,3.34l0 15.7 -6.93 0 0 -3.26 -0.17 0c-0.42,0.8 -0.95,1.47 -1.59,2.02 -0.63,0.54 -1.38,0.96 -2.23,1.24 -0.86,0.28 -1.82,0.42 -2.9,0.42zm2.23 -4.83c0.81,0 1.55,-0.16 2.22,-0.49 0.65,-0.33 1.18,-0.78 1.56,-1.37 0.39,-0.58 0.58,-1.25 0.58,-2l0 -2.21c-0.19,0.12 -0.44,0.22 -0.75,0.31 -0.31,0.09 -0.64,0.17 -1.01,0.26 -0.36,0.08 -0.74,0.16 -1.12,0.22 -0.39,0.06 -0.76,0.12 -1.13,0.18 -0.69,0.09 -1.29,0.26 -1.8,0.5 -0.5,0.24 -0.89,0.54 -1.16,0.9 -0.26,0.37 -0.39,0.81 -0.39,1.33 0,0.5 0.13,0.93 0.39,1.29 0.25,0.36 0.6,0.62 1.06,0.81 0.44,0.18 0.96,0.27 1.55,0.27zm29.18 -18.76l0 5.45 -15.91 0 0 -5.45 15.91 0zm-11.94 23.17l0 -24.71c0,-1.73 0.33,-3.17 0.98,-4.31 0.64,-1.14 1.57,-1.99 2.76,-2.55 1.19,-0.56 2.58,-0.84 4.2,-0.84 0.97,0 1.9,0.06 2.78,0.19 0.88,0.12 1.53,0.23 1.94,0.31l-0.91 5.42c-0.26,-0.06 -0.6,-0.11 -0.99,-0.16 -0.4,-0.05 -0.78,-0.07 -1.15,-0.07 -0.86,0 -1.47,0.19 -1.82,0.57 -0.36,0.39 -0.53,0.94 -0.53,1.67l0 24.48 -7.26 0zm16.16 -28.86l7.3 0 0 21.61c0,0.65 0.15,1.12 0.44,1.42 0.3,0.29 0.78,0.43 1.47,0.43 0.28,0 0.65,-0.02 1.13,-0.07 0.46,-0.05 0.8,-0.09 1.01,-0.14l0.73 5.4c-0.72,0.18 -1.47,0.31 -2.24,0.37 -0.77,0.07 -1.51,0.11 -2.23,0.11 -2.53,0 -4.43,-0.57 -5.71,-1.7 -1.27,-1.13 -1.9,-2.81 -1.9,-5.04l0 -22.39z" />
-      </g>
-    </g>
-  </svg>
-  <text x="64" y="284" font-family="Inter, sans-serif" font-size="62" font-weight="400" fill="#fff">Postal</text>
-  <text x="66" y="346" font-family="Inter, sans-serif" font-size="28" fill="#fff">A Helm chart for your email delivery</text>
-  <text x="66" y="385" font-family="Inter, sans-serif" font-size="28" fill="#fff">platform</text>
-  <svg viewBox="0 0 256 264" width="250" height="258" role="img" x="940" y="194" aria-hidden="true">
-    <g style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" id="g4730">
-      <g id="g4636" />
-      <rect style="font-variation-settings:'opsz' 32, 'wght' 900;fill:#1998ff;fill-opacity:1;stroke-width:10.5638;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:markers fill stroke" id="rect963" width="241.36835" height="247.86084" x="6.3385172" y="8.1042032" ry="17.481256" />
-      <g id="g7280" />
-      <g id="g7285">
-        <rect style="font-variation-settings:'opsz' 32, 'wght' 900;clip-rule:evenodd;fill:#506690;fill-opacity:1;fill-rule:evenodd;stroke-width:10.5641;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:markers fill stroke;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" id="rect963-6" width="241.38019" height="41.468822" x="6.3635287" y="214.77875" ry="17.481256" />
-        <path style="font-variation-settings:'opsz' 32, 'wght' 900;fill:#506690;fill-opacity:1;stroke-width:10.5638;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:markers fill stroke;image-rendering:auto" d="m 247.67244,230.81893 -0.0483,-15.32094 c -0.022,-6.98321 -27.35297,-18.91692 -43.36154,-17.92354 -6.6801,0.41452 -14.53817,0.36281 -49.53107,14.16878 -28.35454,11.18689 -34.96193,-30.26526 -70.015148,-7.92166 -20.263413,12.91629 -65.028945,11.74938 -46.402413,-11.9186 3.864005,-4.90984 -31.952291,6.60201 -31.9883626,27.10666 l -0.022164,12.59927" id="path5825" ns2:nodetypes="cssssssc" />
-      </g>
-    </g>
-    <g fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="48" y="66" width="158" height="108" rx="8" />
-      <path d="m48 76 79 57 79-57m-158 91 53-49m105 49-53-49" />
-    </g>
-  </svg>
-  <text x="66" y="562" font-family="Roboto Mono, monospace" font-size="22" fill="#fff">github.com/hoverkraft-tech/helm-chart-postal</text>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640" role="img" aria-labelledby="title desc">
+  <title id="title">Postal Helm chart</title>
+  <desc id="desc">Social preview for the Hoverkraft Postal Helm chart</desc>
+  <rect width="1280" height="640" fill="#111827" />
+  <rect width="14" height="640" fill="#0ea5e9" />
+  <rect x="54" y="124" width="364" height="364" rx="28" fill="#0b1220" />
+  <image href="./logo.svg" x="98" y="168" width="276" height="276" />
+  <text x="462" y="272" fill="#ffffff" font-family="Inter, Arial, sans-serif" font-size="86" font-weight="700">Postal</text>
+  <text x="462" y="344" fill="#93c5fd" font-family="Inter, Arial, sans-serif" font-size="42">Helm chart</text>
+  <text x="462" y="414" fill="#cbd5e1" font-family="Inter, Arial, sans-serif" font-size="34">hoverkraft-tech/helm-chart-postal</text>
 </svg>

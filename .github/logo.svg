@@ -1,17 +1,12 @@
-<?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:ns1="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" viewBox="0 0 256 264" width="256" height="264" role="img" aria-labelledby="title">
-  <title id="title">Postal project logo</title>
-  <g style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" id="g4730">
-    <g id="g4636" />
-    <rect style="font-variation-settings:'opsz' 32, 'wght' 900;fill:#1998ff;fill-opacity:1;stroke-width:10.5638;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:markers fill stroke" id="rect963" width="241.36835" height="247.86084" x="6.3385172" y="8.1042032" ry="17.481256" />
-    <g id="g7280" />
-    <g id="g7285">
-      <rect style="font-variation-settings:'opsz' 32, 'wght' 900;clip-rule:evenodd;fill:#506690;fill-opacity:1;fill-rule:evenodd;stroke-width:10.5641;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:markers fill stroke;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision" id="rect963-6" width="241.38019" height="41.468822" x="6.3635287" y="214.77875" ry="17.481256" />
-      <path style="font-variation-settings:'opsz' 32, 'wght' 900;fill:#506690;fill-opacity:1;stroke-width:10.5638;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;paint-order:markers fill stroke;image-rendering:auto" d="m 247.67244,230.81893 -0.0483,-15.32094 c -0.022,-6.98321 -27.35297,-18.91692 -43.36154,-17.92354 -6.6801,0.41452 -14.53817,0.36281 -49.53107,14.16878 -28.35454,11.18689 -34.96193,-30.26526 -70.015148,-7.92166 -20.263413,12.91629 -65.028945,11.74938 -46.402413,-11.9186 3.864005,-4.90984 -31.952291,6.60201 -31.9883626,27.10666 l -0.022164,12.59927" id="path5825" ns1:nodetypes="cssssssc" />
-    </g>
-  </g>
-  <g fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="48" y="66" width="158" height="108" rx="8" />
-    <path d="m48 76 79 57 79-57m-158 91 53-49m105 49-53-49" />
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-labelledby="title desc">
+  <title id="title">Postal Helm chart logo</title>
+  <desc id="desc">A Helm-inspired hexagon with a mail envelope for Postal</desc>
+  <rect width="256" height="256" rx="28" fill="#0f172a" />
+  <path d="M128 28l80 46v92l-80 46-80-46V74z" fill="#0ea5e9" />
+  <path d="M128 50l61 35v70l-61 35-61-35V85z" fill="#0369a1" opacity="0.55" />
+  <rect x="62" y="84" width="132" height="88" rx="10" fill="#ffffff" />
+  <path d="M62 94l66 48 66-48" fill="none" stroke="#0f172a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M62 162l40-37m92 37-40-37" fill="none" stroke="#0f172a" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M126 46h4c9 0 16 7 16 16v12h-10V62c0-3-3-6-6-6h-4z" fill="#ffffff" />
 </svg>
