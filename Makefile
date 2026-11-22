@@ -25,7 +25,6 @@ define run_linter
 	@set -eu; \
 	git_common_dir="$$(git rev-parse --path-format=absolute --git-common-dir)"; \
 	docker build --platform linux/amd64 --target linter \
-		--build-arg UID="$$(id -u)" --build-arg GID="$$(id -g)" \
 		--tag "$(LINTER_IMAGE)" .; \
 	docker run --platform linux/amd64 --rm \
 		--volume "$(CURDIR):$(CURDIR)" \
