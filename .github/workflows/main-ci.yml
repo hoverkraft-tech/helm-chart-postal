@@ -1,7 +1,7 @@
 ---
 name: Main - Continuous Integration
 
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   push:
     branches:
       - main
@@ -31,11 +31,11 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
 
-      - uses: hoverkraft-tech/ci-github-container/actions/helm/generate-docs@b055d6ce0f3a5e223615ad494d88d92e17af11e5  # 4.2.0
+      - uses: hoverkraft-tech/ci-github-container/actions/helm/generate-docs@b055d6ce0f3a5e223615ad494d88d92e17af11e5 # 4.2.0
         with:
           working-directory: ./postal
           values-file: values.yaml
