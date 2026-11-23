@@ -1,6 +1,6 @@
 # postal
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.3.4](https://img.shields.io/badge/AppVersion-3.3.4-informational?style=flat-square)
+![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 3.3.4](https://img.shields.io/badge/AppVersion-3.3.4-informational?style=flat-square)
 
 A Helm chart for Kubernetes
 
@@ -16,8 +16,8 @@ A Helm chart for Kubernetes
 
 | Repository                           | Name         | Version |
 | ------------------------------------ | ------------ | ------- |
-| <https://charts.bitnami.com/bitnami> | mariadb      | 24.1.1  |
-| <https://charts.jetstack.io>         | cert-manager | 1.19.3  |
+| <https://charts.bitnami.com/bitnami> | mariadb      | 28.1.6  |
+| <https://charts.jetstack.io>         | cert-manager | 1.21.3  |
 
 ## Values
 
