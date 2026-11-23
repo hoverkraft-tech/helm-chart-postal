@@ -33,16 +33,6 @@ jobs:
       security-events: write
       statuses: write
 
-    with:
-      # API installation tests validate CRD definitions; other resources keep schema checks.
-      linter-env: >-
-        KUBERNETES_KUBECONFORM_OPTIONS=-skip CustomResourceDefinition
-        -schema-location default
-        -schema-location
-        https://raw.githubusercontent.com/hoverkraft-tech/crds-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json
-        -schema-location
-        https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json
-
   tests-charts:
     name: Tests - Charts
     uses: hoverkraft-tech/ci-github-container/.github/workflows/helm-chart-ci.yml@b055d6ce0f3a5e223615ad494d88d92e17af11e5 # 4.2.0
