@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="246" height="252" viewBox="4 6 246 252" role="img" aria-labelledby="title desc">
   <title id="title">Postal logo</title>
-  <desc id="desc">Blue card icon with the Postal envelope mark in white.</desc>
-  <rect width="256" height="256" rx="28" fill="#1998ff" />
-  <rect x="12" y="214" width="232" height="36" rx="15" fill="#506690" />
-  <path d="M244 229v-12c0-5-18-14-30-13-6 1-13 1-42 12-24 10-30-25-58-7-17 11-54 10-39-10 4-5-27 6-27 22v10" fill="#506690" />
-  <rect x="64" y="84" width="128" height="88" rx="10" fill="#fff" />
-  <path d="M64 94l64 46 64-46M64 162l40-36m88 36-40-36" fill="none" stroke="#506690" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+  <desc id="desc">Trimmed icon extracted from social-preview without text.</desc>
+  <rect x="6.3385172" y="8.1042032" width="241.36835" height="247.86084" ry="17.481256" fill="#1998ff" />
+  <rect x="6.3635287" y="214.77875" width="241.38019" height="41.468822" ry="17.481256" fill="#506690" />
+  <path d="m 247.67244,230.81893 -0.0483,-15.32094 c -0.022,-6.98321 -27.35297,-18.91692 -43.36154,-17.92354 -6.6801,0.41452 -14.53817,0.36281 -49.53107,14.16878 -28.35454,11.18689 -34.96193,-30.26526 -70.015148,-7.92166 -20.263413,12.91629 -65.028945,11.74938 -46.402413,-11.9186 3.864005,-4.90984 -31.952291,6.60201 -31.9883626,27.10666 l -0.022164,12.59927" fill="#506690" />
 </svg>
