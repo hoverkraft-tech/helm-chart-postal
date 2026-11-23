@@ -1,2 +1,2 @@
 [codespell]
-skip = ./.github/social-preview.svg,./.github/logo.svg
+skip = **/.github/social-preview.svg,**/.github/logo.svg
