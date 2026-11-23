@@ -1,7 +1,7 @@
 ---
 name: Shared - Continuous Integration for common tasks
 
-on: # yamllint disable-line rule:truthy
+on:  # yamllint disable-line rule:truthy
   workflow_call:
     inputs:
       upload-artifact:
@@ -23,7 +23,7 @@ permissions: {}
 
 jobs:
   linter:
-    uses: hoverkraft-tech/ci-github-common/.github/workflows/linter.yml@f165c0ca3e88604611481e1408ace1e0e3a5ee47 # 4.3.1
+    uses: hoverkraft-tech/ci-github-common/.github/workflows/linter.yml@f165c0ca3e88604611481e1408ace1e0e3a5ee47  # 4.3.1
     permissions:
       actions: read
       contents: read
@@ -35,12 +35,17 @@ jobs:
 
     with:
       # API installation tests validate CRD definitions; other resources keep schema checks.
-      linter-env: |
-        KUBERNETES_KUBECONFORM_OPTIONS=-skip CustomResourceDefinition -schema-location default -schema-location https://raw.githubusercontent.com/hoverkraft-tech/crds-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json -schema-location https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json
+      linter-env: >-
+        KUBERNETES_KUBECONFORM_OPTIONS=-skip CustomResourceDefinition
+        -schema-location default
+        -schema-location
+        https://raw.githubusercontent.com/hoverkraft-tech/crds-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json
+        -schema-location
+        https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json
 
   tests-charts:
     name: Tests - Charts
-    uses: hoverkraft-tech/ci-github-container/.github/workflows/helm-chart-ci.yml@b055d6ce0f3a5e223615ad494d88d92e17af11e5 # 4.2.0
+    uses: hoverkraft-tech/ci-github-container/.github/workflows/helm-chart-ci.yml@b055d6ce0f3a5e223615ad494d88d92e17af11e5  # 4.2.0
     permissions:
       contents: read
       packages: read

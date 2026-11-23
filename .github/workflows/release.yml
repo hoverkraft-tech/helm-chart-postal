@@ -1,7 +1,8 @@
+---
 # Prepare committed chart versions, validate the dispatched tag, then publish.
 name: Release
 
-on:
+on:  # yamllint disable-line rule:truthy
   # checkov:skip=CKV_GHA_7: Force overrides only the no-change plan, never validation or publication checks.
   workflow_dispatch:
     inputs:
@@ -20,7 +21,7 @@ concurrency:
 
 jobs:
   prepare:
-    uses: hoverkraft-tech/ci-github-container/.github/workflows/prepare-chart-release.yml@b055d6ce0f3a5e223615ad494d88d92e17af11e5 # 4.2.0
+    uses: hoverkraft-tech/ci-github-container/.github/workflows/prepare-chart-release.yml@b055d6ce0f3a5e223615ad494d88d92e17af11e5  # 4.2.0
     permissions:
       actions: write
       contents: write
@@ -60,14 +61,14 @@ jobs:
     steps:
       - name: Publish and sign validated archive
         id: publish
-        uses: hoverkraft-tech/ci-github-container/actions/helm/release-chart@b055d6ce0f3a5e223615ad494d88d92e17af11e5 # 4.2.0
+        uses: hoverkraft-tech/ci-github-container/actions/helm/release-chart@b055d6ce0f3a5e223615ad494d88d92e17af11e5  # 4.2.0
         with:
           artifact-id: ${{ needs.validate.outputs.artifact-id }}
           archive-name: ${{ needs.validate.outputs.archive-name }}
           checksum: ${{ needs.validate.outputs.checksum }}
           oci-repository: ${{ github.repository }}/charts/postal
 
-      - uses: hoverkraft-tech/ci-github-publish/actions/release/create@d034b96d52f6f32c58a93bcd87a06932f50d8b26 # 3.1.0
+      - uses: hoverkraft-tech/ci-github-publish/actions/release/create@d034b96d52f6f32c58a93bcd87a06932f50d8b26  # 3.1.0
         with:
           tag: ${{ needs.prepare.outputs.tag }}
           target-ref: ${{ github.sha }}
