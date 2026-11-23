@@ -336,7 +336,7 @@ spamAssassin:
 jobs:
   # Bootstrap MariaDB
   initialize:
-    enable: true  # is it the right value ?
+    enable: true # is it the right value ?
     annotations:
       helm.sh/hook: "post-install,post-upgrade"
       helm.sh/hook-delete-policy: "before-hook-creation"
