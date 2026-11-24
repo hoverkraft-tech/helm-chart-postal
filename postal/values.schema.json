@@ -1,648 +1,648 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "type": "object",
-    "properties": {
-        "cert-manager": {
-            "type": "object",
-            "properties": {
-                "crds": {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "fullnameOverride": {
-                    "type": "string"
-                }
-            }
-        },
-        "clamAv": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "host": {
-                    "type": "string"
-                },
-                "port": {
-                    "type": "integer"
-                }
-            }
-        },
-        "commonsAnnotations": {
-            "type": "object"
-        },
-        "database": {
-            "type": "object",
-            "properties": {
-                "encoding": {
-                    "type": "string"
-                },
-                "poolSize": {
-                    "type": "integer"
-                }
-            }
-        },
-        "dns": {
-            "type": "object",
-            "properties": {
-                "mxRecords": {
-                    "type": "string"
-                },
-                "returnPathDomain": {
-                    "type": "string"
-                },
-                "routeDomain": {
-                    "type": "string"
-                },
-                "spfInclude": {
-                    "type": "string"
-                },
-                "trackDomain": {
-                    "type": "string"
-                }
-            }
-        },
-        "fullnameOverride": {
-            "type": "string"
-        },
-        "global": {
-            "type": "object",
-            "properties": {
-                "existingSecretName": {
-                    "type": "string"
-                },
-                "maximumDeliveryAttempts": {
-                    "type": "integer"
-                },
-                "maximumHoldExpiryDays": {
-                    "type": "integer"
-                },
-                "railsSecretKey": {
-                    "type": "string"
-                },
-                "secretName": {
-                    "type": "string"
-                },
-                "signingKey": {
-                    "type": "string"
-                },
-                "smtpHostname": {
-                    "type": "string"
-                },
-                "smtpRelays": {
-                    "type": "string"
-                },
-                "spamFailureThreshold": {
-                    "type": "integer"
-                },
-                "spamThreshold": {
-                    "type": "integer"
-                },
-                "suppressionListAutomaticRemovalDays": {
-                    "type": "integer"
-                },
-                "trustedProxies": {
-                    "type": "string"
-                },
-                "useIpPools": {
-                    "type": "boolean"
-                },
-                "useLocalNsForDomainVerification": {
-                    "type": "boolean"
-                },
-                "useResentSenderHeader": {
-                    "type": "boolean"
-                },
-                "webHostname": {
-                    "type": "string"
-                },
-                "webProtocol": {
-                    "type": "string"
-                }
-            }
-        },
-        "image": {
-            "type": "object",
-            "properties": {
-                "pullPolicy": {
-                    "type": "string"
-                },
-                "repository": {
-                    "type": "string"
-                },
-                "tag": {
-                    "type": "string"
-                }
-            }
-        },
-        "jobs": {
-            "type": "object",
-            "properties": {
-                "initialize": {
-                    "type": "object",
-                    "properties": {
-                        "affinity": {
-                            "type": "object"
-                        },
-                        "annotations": {
-                            "type": "object",
-                            "properties": {
-                                "helm.sh/hook": {
-                                    "type": "string"
-                                },
-                                "helm.sh/hook-delete-policy": {
-                                    "type": "string"
-                                },
-                                "helm.sh/hook-weight": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "autoscaling": {
-                            "type": "object",
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "maxReplicas": {
-                                    "type": "integer"
-                                },
-                                "minReplicas": {
-                                    "type": "integer"
-                                },
-                                "targetCPUUtilizationPercentage": {
-                                    "type": "integer"
-                                }
-                            }
-                        },
-                        "enable": {
-                            "type": "boolean"
-                        },
-                        "fullnameOverride": {
-                            "type": "string"
-                        },
-                        "image": {
-                            "type": "object",
-                            "properties": {
-                                "pullPolicy": {
-                                    "type": "string"
-                                },
-                                "repository": {
-                                    "type": "string"
-                                },
-                                "tag": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "imagePullSecrets": {
-                            "type": "array"
-                        },
-                        "nameOverride": {
-                            "type": "string"
-                        },
-                        "nodeSelector": {
-                            "type": "object"
-                        },
-                        "podAnnotations": {
-                            "type": "object"
-                        },
-                        "podSecurityContext": {
-                            "type": "object"
-                        },
-                        "resources": {
-                            "type": "object"
-                        },
-                        "securityContext": {
-                            "type": "object"
-                        },
-                        "serviceAccount": {
-                            "type": "object",
-                            "properties": {
-                                "annotations": {
-                                    "type": "object"
-                                },
-                                "create": {
-                                    "type": "boolean"
-                                },
-                                "name": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "tolerations": {
-                            "type": "array"
-                        }
-                    }
-                }
-            }
-        },
-        "logging": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "highlighting": {
-                    "type": "boolean"
-                },
-                "railsLog": {
-                    "type": "boolean"
-                },
-                "sentryDsn": {
-                    "type": "string"
-                }
-            }
-        },
-        "mariadb": {
-            "type": "object",
-            "properties": {
-                "auth": {
-                    "type": "object",
-                    "properties": {
-                        "database": {
-                            "type": "string"
-                        },
-                        "password": {
-                            "type": "string"
-                        },
-                        "username": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "enabled": {
-                    "type": "boolean"
-                },
-                "fullnameOverride": {
-                    "type": "string"
-                },
-                "image": {
-                    "type": "object",
-                    "properties": {
-                        "digest": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "initdbScripts": {
-                    "type": "object",
-                    "properties": {
-                        "grant_privileges.sql": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "nameOverride": {
-            "type": "string"
-        },
-        "smtp": {
-            "type": "object",
-            "properties": {
-                "affinity": {
-                    "type": "object"
-                },
-                "containerPort": {
-                    "type": "integer"
-                },
-                "fullnameOverride": {
-                    "type": "string"
-                },
-                "healthAndMetricsServerPort": {
-                    "type": "integer"
-                },
-                "imagePullSecrets": {
-                    "type": "array"
-                },
-                "logConnections": {
-                    "type": "boolean"
-                },
-                "logIpAddressExclusionMatcher": {
-                    "type": "string"
-                },
-                "maxMessageSize": {
-                    "type": "integer"
-                },
-                "nameOverride": {
-                    "type": "string"
-                },
-                "nodeSelector": {
-                    "type": "object"
-                },
-                "podAnnotations": {
-                    "type": "object"
-                },
-                "podSecurityContext": {
-                    "type": "object"
-                },
-                "proxyProtocol": {
-                    "type": "boolean"
-                },
-                "replicaCount": {
-                    "type": "integer"
-                },
-                "resources": {
-                    "type": "object"
-                },
-                "securityContext": {
-                    "type": "object"
-                },
-                "service": {
-                    "type": "object",
-                    "properties": {
-                        "port": {
-                            "type": "integer"
-                        },
-                        "type": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "serviceAccount": {
-                    "type": "object",
-                    "properties": {
-                        "annotations": {
-                            "type": "object"
-                        },
-                        "create": {
-                            "type": "boolean"
-                        },
-                        "name": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "tls": {
-                    "type": "object",
-                    "properties": {
-                        "annotations": {
-                            "type": "object"
-                        },
-                        "certManager": {
-                            "type": "object",
-                            "properties": {
-                                "issuer": {
-                                    "type": "object",
-                                    "properties": {
-                                        "group": {
-                                            "type": "string"
-                                        },
-                                        "kind": {
-                                            "type": "string"
-                                        },
-                                        "name": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "hosts": {
-                            "type": "array"
-                        },
-                        "source": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "tolerations": {
-                    "type": "array"
-                }
-            }
-        },
-        "spamAssassin": {
-            "type": "object",
-            "properties": {
-                "enabled": {
-                    "type": "boolean"
-                },
-                "host": {
-                    "type": "string"
-                },
-                "port": {
-                    "type": "integer"
-                }
-            }
-        },
-        "web": {
-            "type": "object",
-            "properties": {
-                "affinity": {
-                    "type": "object"
-                },
-                "autoscaling": {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "maxReplicas": {
-                            "type": "integer"
-                        },
-                        "minReplicas": {
-                            "type": "integer"
-                        },
-                        "targetCPUUtilizationPercentage": {
-                            "type": "integer"
-                        }
-                    }
-                },
-                "containerPort": {
-                    "type": "integer"
-                },
-                "fullnameOverride": {
-                    "type": "string"
-                },
-                "imagePullSecrets": {
-                    "type": "array"
-                },
-                "ingress": {
-                    "type": "object",
-                    "properties": {
-                        "annotations": {
-                            "type": "object"
-                        },
-                        "className": {
-                            "type": "string"
-                        },
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "hosts": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "host": {
-                                        "type": "string"
-                                    },
-                                    "paths": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "path": {
-                                                    "type": "string"
-                                                },
-                                                "pathType": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "tls": {
-                            "type": "array"
-                        }
-                    }
-                },
-                "maxThreads": {
-                    "type": "integer"
-                },
-                "nameOverride": {
-                    "type": "string"
-                },
-                "nodeSelector": {
-                    "type": "object"
-                },
-                "podAnnotations": {
-                    "type": "object"
-                },
-                "podSecurityContext": {
-                    "type": "object"
-                },
-                "replicaCount": {
-                    "type": "integer"
-                },
-                "resources": {
-                    "type": "object"
-                },
-                "securityContext": {
-                    "type": "object"
-                },
-                "service": {
-                    "type": "object",
-                    "properties": {
-                        "port": {
-                            "type": "integer"
-                        },
-                        "type": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "serviceAccount": {
-                    "type": "object",
-                    "properties": {
-                        "annotations": {
-                            "type": "object"
-                        },
-                        "create": {
-                            "type": "boolean"
-                        },
-                        "name": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "tolerations": {
-                    "type": "array"
-                }
-            }
-        },
-        "worker": {
-            "type": "object",
-            "properties": {
-                "affinity": {
-                    "type": "object"
-                },
-                "autoscaling": {
-                    "type": "object",
-                    "properties": {
-                        "enabled": {
-                            "type": "boolean"
-                        },
-                        "maxReplicas": {
-                            "type": "integer"
-                        },
-                        "minReplicas": {
-                            "type": "integer"
-                        },
-                        "targetCPUUtilizationPercentage": {
-                            "type": "integer"
-                        }
-                    }
-                },
-                "fullnameOverride": {
-                    "type": "string"
-                },
-                "healthAndMetricsServerPort": {
-                    "type": "integer"
-                },
-                "imagePullSecrets": {
-                    "type": "array"
-                },
-                "nameOverride": {
-                    "type": "string"
-                },
-                "nodeSelector": {
-                    "type": "object"
-                },
-                "podAnnotations": {
-                    "type": "object"
-                },
-                "podSecurityContext": {
-                    "type": "object"
-                },
-                "replicaCount": {
-                    "type": "integer"
-                },
-                "resources": {
-                    "type": "object"
-                },
-                "securityContext": {
-                    "type": "object"
-                },
-                "service": {
-                    "type": "object",
-                    "properties": {
-                        "type": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "serviceAccount": {
-                    "type": "object",
-                    "properties": {
-                        "annotations": {
-                            "type": "object"
-                        },
-                        "create": {
-                            "type": "boolean"
-                        },
-                        "name": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "tolerations": {
-                    "type": "array"
-                }
-            }
-        }
-    }
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"type": "object",
+	"properties": {
+		"cert-manager": {
+			"type": "object",
+			"properties": {
+				"crds": {
+					"type": "object",
+					"properties": {
+						"enabled": {
+							"type": "boolean"
+						}
+					}
+				},
+				"enabled": {
+					"type": "boolean"
+				},
+				"fullnameOverride": {
+					"type": "string"
+				}
+			}
+		},
+		"clamAv": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"type": "boolean"
+				},
+				"host": {
+					"type": "string"
+				},
+				"port": {
+					"type": "integer"
+				}
+			}
+		},
+		"commonsAnnotations": {
+			"type": "object"
+		},
+		"database": {
+			"type": "object",
+			"properties": {
+				"encoding": {
+					"type": "string"
+				},
+				"poolSize": {
+					"type": "integer"
+				}
+			}
+		},
+		"dns": {
+			"type": "object",
+			"properties": {
+				"mxRecords": {
+					"type": "string"
+				},
+				"returnPathDomain": {
+					"type": "string"
+				},
+				"routeDomain": {
+					"type": "string"
+				},
+				"spfInclude": {
+					"type": "string"
+				},
+				"trackDomain": {
+					"type": "string"
+				}
+			}
+		},
+		"fullnameOverride": {
+			"type": "string"
+		},
+		"global": {
+			"type": "object",
+			"properties": {
+				"existingSecretName": {
+					"type": "string"
+				},
+				"maximumDeliveryAttempts": {
+					"type": "integer"
+				},
+				"maximumHoldExpiryDays": {
+					"type": "integer"
+				},
+				"railsSecretKey": {
+					"type": "string"
+				},
+				"secretName": {
+					"type": "string"
+				},
+				"signingKey": {
+					"type": "string"
+				},
+				"smtpHostname": {
+					"type": "string"
+				},
+				"smtpRelays": {
+					"type": "string"
+				},
+				"spamFailureThreshold": {
+					"type": "integer"
+				},
+				"spamThreshold": {
+					"type": "integer"
+				},
+				"suppressionListAutomaticRemovalDays": {
+					"type": "integer"
+				},
+				"trustedProxies": {
+					"type": "string"
+				},
+				"useIpPools": {
+					"type": "boolean"
+				},
+				"useLocalNsForDomainVerification": {
+					"type": "boolean"
+				},
+				"useResentSenderHeader": {
+					"type": "boolean"
+				},
+				"webHostname": {
+					"type": "string"
+				},
+				"webProtocol": {
+					"type": "string"
+				}
+			}
+		},
+		"image": {
+			"type": "object",
+			"properties": {
+				"pullPolicy": {
+					"type": "string"
+				},
+				"repository": {
+					"type": "string"
+				},
+				"tag": {
+					"type": "string"
+				}
+			}
+		},
+		"jobs": {
+			"type": "object",
+			"properties": {
+				"initialize": {
+					"type": "object",
+					"properties": {
+						"affinity": {
+							"type": "object"
+						},
+						"annotations": {
+							"type": "object",
+							"properties": {
+								"helm.sh/hook": {
+									"type": "string"
+								},
+								"helm.sh/hook-delete-policy": {
+									"type": "string"
+								},
+								"helm.sh/hook-weight": {
+									"type": "string"
+								}
+							}
+						},
+						"autoscaling": {
+							"type": "object",
+							"properties": {
+								"enabled": {
+									"type": "boolean"
+								},
+								"maxReplicas": {
+									"type": "integer"
+								},
+								"minReplicas": {
+									"type": "integer"
+								},
+								"targetCPUUtilizationPercentage": {
+									"type": "integer"
+								}
+							}
+						},
+						"enable": {
+							"type": "boolean"
+						},
+						"fullnameOverride": {
+							"type": "string"
+						},
+						"image": {
+							"type": "object",
+							"properties": {
+								"pullPolicy": {
+									"type": "string"
+								},
+								"repository": {
+									"type": "string"
+								},
+								"tag": {
+									"type": "string"
+								}
+							}
+						},
+						"imagePullSecrets": {
+							"type": "array"
+						},
+						"nameOverride": {
+							"type": "string"
+						},
+						"nodeSelector": {
+							"type": "object"
+						},
+						"podAnnotations": {
+							"type": "object"
+						},
+						"podSecurityContext": {
+							"type": "object"
+						},
+						"resources": {
+							"type": "object"
+						},
+						"securityContext": {
+							"type": "object"
+						},
+						"serviceAccount": {
+							"type": "object",
+							"properties": {
+								"annotations": {
+									"type": "object"
+								},
+								"create": {
+									"type": "boolean"
+								},
+								"name": {
+									"type": "string"
+								}
+							}
+						},
+						"tolerations": {
+							"type": "array"
+						}
+					}
+				}
+			}
+		},
+		"logging": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"type": "boolean"
+				},
+				"highlighting": {
+					"type": "boolean"
+				},
+				"railsLog": {
+					"type": "boolean"
+				},
+				"sentryDsn": {
+					"type": "string"
+				}
+			}
+		},
+		"mariadb": {
+			"type": "object",
+			"properties": {
+				"auth": {
+					"type": "object",
+					"properties": {
+						"database": {
+							"type": "string"
+						},
+						"password": {
+							"type": "string"
+						},
+						"username": {
+							"type": "string"
+						}
+					}
+				},
+				"enabled": {
+					"type": "boolean"
+				},
+				"fullnameOverride": {
+					"type": "string"
+				},
+				"image": {
+					"type": "object",
+					"properties": {
+						"digest": {
+							"type": "string"
+						}
+					}
+				},
+				"initdbScripts": {
+					"type": "object",
+					"properties": {
+						"grant_privileges.sql": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		},
+		"nameOverride": {
+			"type": "string"
+		},
+		"smtp": {
+			"type": "object",
+			"properties": {
+				"affinity": {
+					"type": "object"
+				},
+				"containerPort": {
+					"type": "integer"
+				},
+				"fullnameOverride": {
+					"type": "string"
+				},
+				"healthAndMetricsServerPort": {
+					"type": "integer"
+				},
+				"imagePullSecrets": {
+					"type": "array"
+				},
+				"logConnections": {
+					"type": "boolean"
+				},
+				"logIpAddressExclusionMatcher": {
+					"type": "string"
+				},
+				"maxMessageSize": {
+					"type": "integer"
+				},
+				"nameOverride": {
+					"type": "string"
+				},
+				"nodeSelector": {
+					"type": "object"
+				},
+				"podAnnotations": {
+					"type": "object"
+				},
+				"podSecurityContext": {
+					"type": "object"
+				},
+				"proxyProtocol": {
+					"type": "boolean"
+				},
+				"replicaCount": {
+					"type": "integer"
+				},
+				"resources": {
+					"type": "object"
+				},
+				"securityContext": {
+					"type": "object"
+				},
+				"service": {
+					"type": "object",
+					"properties": {
+						"port": {
+							"type": "integer"
+						},
+						"type": {
+							"type": "string"
+						}
+					}
+				},
+				"serviceAccount": {
+					"type": "object",
+					"properties": {
+						"annotations": {
+							"type": "object"
+						},
+						"create": {
+							"type": "boolean"
+						},
+						"name": {
+							"type": "string"
+						}
+					}
+				},
+				"tls": {
+					"type": "object",
+					"properties": {
+						"annotations": {
+							"type": "object"
+						},
+						"certManager": {
+							"type": "object",
+							"properties": {
+								"issuer": {
+									"type": "object",
+									"properties": {
+										"group": {
+											"type": "string"
+										},
+										"kind": {
+											"type": "string"
+										},
+										"name": {
+											"type": "string"
+										}
+									}
+								}
+							}
+						},
+						"enabled": {
+							"type": "boolean"
+						},
+						"hosts": {
+							"type": "array"
+						},
+						"source": {
+							"type": "string"
+						}
+					}
+				},
+				"tolerations": {
+					"type": "array"
+				}
+			}
+		},
+		"spamAssassin": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"type": "boolean"
+				},
+				"host": {
+					"type": "string"
+				},
+				"port": {
+					"type": "integer"
+				}
+			}
+		},
+		"web": {
+			"type": "object",
+			"properties": {
+				"affinity": {
+					"type": "object"
+				},
+				"autoscaling": {
+					"type": "object",
+					"properties": {
+						"enabled": {
+							"type": "boolean"
+						},
+						"maxReplicas": {
+							"type": "integer"
+						},
+						"minReplicas": {
+							"type": "integer"
+						},
+						"targetCPUUtilizationPercentage": {
+							"type": "integer"
+						}
+					}
+				},
+				"containerPort": {
+					"type": "integer"
+				},
+				"fullnameOverride": {
+					"type": "string"
+				},
+				"imagePullSecrets": {
+					"type": "array"
+				},
+				"ingress": {
+					"type": "object",
+					"properties": {
+						"annotations": {
+							"type": "object"
+						},
+						"className": {
+							"type": "string"
+						},
+						"enabled": {
+							"type": "boolean"
+						},
+						"hosts": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"host": {
+										"type": "string"
+									},
+									"paths": {
+										"type": "array",
+										"items": {
+											"type": "object",
+											"properties": {
+												"path": {
+													"type": "string"
+												},
+												"pathType": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								}
+							}
+						},
+						"tls": {
+							"type": "array"
+						}
+					}
+				},
+				"maxThreads": {
+					"type": "integer"
+				},
+				"nameOverride": {
+					"type": "string"
+				},
+				"nodeSelector": {
+					"type": "object"
+				},
+				"podAnnotations": {
+					"type": "object"
+				},
+				"podSecurityContext": {
+					"type": "object"
+				},
+				"replicaCount": {
+					"type": "integer"
+				},
+				"resources": {
+					"type": "object"
+				},
+				"securityContext": {
+					"type": "object"
+				},
+				"service": {
+					"type": "object",
+					"properties": {
+						"port": {
+							"type": "integer"
+						},
+						"type": {
+							"type": "string"
+						}
+					}
+				},
+				"serviceAccount": {
+					"type": "object",
+					"properties": {
+						"annotations": {
+							"type": "object"
+						},
+						"create": {
+							"type": "boolean"
+						},
+						"name": {
+							"type": "string"
+						}
+					}
+				},
+				"tolerations": {
+					"type": "array"
+				}
+			}
+		},
+		"worker": {
+			"type": "object",
+			"properties": {
+				"affinity": {
+					"type": "object"
+				},
+				"autoscaling": {
+					"type": "object",
+					"properties": {
+						"enabled": {
+							"type": "boolean"
+						},
+						"maxReplicas": {
+							"type": "integer"
+						},
+						"minReplicas": {
+							"type": "integer"
+						},
+						"targetCPUUtilizationPercentage": {
+							"type": "integer"
+						}
+					}
+				},
+				"fullnameOverride": {
+					"type": "string"
+				},
+				"healthAndMetricsServerPort": {
+					"type": "integer"
+				},
+				"imagePullSecrets": {
+					"type": "array"
+				},
+				"nameOverride": {
+					"type": "string"
+				},
+				"nodeSelector": {
+					"type": "object"
+				},
+				"podAnnotations": {
+					"type": "object"
+				},
+				"podSecurityContext": {
+					"type": "object"
+				},
+				"replicaCount": {
+					"type": "integer"
+				},
+				"resources": {
+					"type": "object"
+				},
+				"securityContext": {
+					"type": "object"
+				},
+				"service": {
+					"type": "object",
+					"properties": {
+						"type": {
+							"type": "string"
+						}
+					}
+				},
+				"serviceAccount": {
+					"type": "object",
+					"properties": {
+						"annotations": {
+							"type": "object"
+						},
+						"create": {
+							"type": "boolean"
+						},
+						"name": {
+							"type": "string"
+						}
+					}
+				},
+				"tolerations": {
+					"type": "array"
+				}
+			}
+		}
+	}
 }
