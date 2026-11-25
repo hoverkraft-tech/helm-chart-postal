@@ -1,5 +1,14 @@
 {
 	"files": {
 		"includes": ["**", "!.github/*.svg"]
-	}
+	},
+	"overrides": [
+		{
+			"includes": ["postal/values.schema.json"],
+			"formatter": {
+				"indentStyle": "space",
+				"indentWidth": 4
+			}
+		}
+	]
 }
